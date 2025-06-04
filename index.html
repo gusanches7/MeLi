@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeLi - Liberdade Energética na Palma da Sua Mão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            color: #3A3A3A; /* Default text color: Cinza Escuro */
+        }
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Nova Paleta de Cores CCEE + MeLi */
+        .bg-ccee-verde-agua { background-color: #3EC6A6; }
+        .text-ccee-verde-agua { color: #3EC6A6; }
+        .border-ccee-verde-agua { border-color: #3EC6A6; }
+        .hover\:bg-ccee-verde-agua-dark:hover { background-color: #35B094; } /* Darker shade */
+        .ring-ccee-verde-agua:focus { ring-color: #3EC6A6; }
+
+
+        .bg-ccee-azul-petroleo { background-color: #004A77; }
+        .text-ccee-azul-petroleo { color: #004A77; }
+        .border-ccee-azul-petroleo { border-color: #004A77; }
+        .hover\:bg-ccee-azul-petroleo-dark:hover { background-color: #003B60; } /* Darker shade */
+
+        .bg-ccee-amarelo-luz { background-color: #FFD84C; }
+        .text-ccee-amarelo-luz { color: #FFD84C; } /* Usually for text on dark backgrounds or highlights */
+
+        .bg-ccee-cinza-claro { background-color: #F4F7F8; }
+        .text-ccee-cinza-escuro { color: #3A3A3A; } /* For primary text */
+        .text-ccee-cinza-medio { color: #777777; } /* For secondary text if needed */
+
+
+        /* Original Custom Brand Colors (commented out or replaced)
+        .bg-verde-agua-suave { background-color: #6EE7B7; }
+        .text-verde-agua-suave { color: #6EE7B7; }
+        .hover\:bg-verde-agua-suave-dark:hover { background-color: #4DDAB0; }
+
+        .bg-azul-petroleo { background-color: #0A9396; }
+        .text-azul-petroleo { color: #0A9396; }
+        .hover\:bg-azul-petroleo-dark:hover { background-color: #087E80; }
+
+        .bg-amarelo-luz { background-color: #FEEA00; }
+        .text-amarelo-luz { color: #FEEA00; }
+
+        .bg-cinza-claro { background-color: #f0f4f8; }
+        */
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 220px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+        }
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #555 transparent transparent transparent;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(62, 198, 166, 0.7); } /* Adjusted pulse color */
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(62, 198, 166, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(62, 198, 166, 0); }
+        }
+        .whatsapp-bubble-user {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+        }
+        .whatsapp-bubble-meli {
+            background-color: #E5E5EA;
+            align-self: flex-start;
+        }
+        .brand-gradient {
+            background: linear-gradient(to right, #3EC6A6, #004A77); /* Updated gradient */
+        }
+        .section-transition {
+            transition: all 0.5s ease-in-out;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Loading Spinner */
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3EC6A6; /* Updated loader color */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-white text-ccee-cinza-escuro">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- User: Replace with your MeLi logo if you have one as an image -->
+            <a href="#" class="font-poppins font-bold text-2xl text-ccee-azul-petroleo">MeLi</a>
+            <div class="space-x-4">
+                <a href="#descubra" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Descubra</a>
+                <a href="#compare" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Compare</a>
+                <a href="#whatsapp" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">WhatsApp</a>
+                <a href="#visual-law" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Visual Law</a>
+                <a href="#valores" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Valores</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 1. Hero Section -->
+    <section id="hero" class="bg-ccee-cinza-claro py-16 md:py-24 section-transition">
+        <div class="container mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto">
+                <!-- USER: Replace the src with the actual path to your hosted MeLi avatar image -->
+                <img src="images/avatar-principal.png" alt="Avatar MeLi" class="w-32 h-32 mx-auto mb-6 rounded-full shadow-lg" onerror="this.src='https://placehold.co/128x128/CCCCCC/FFFFFF?text=MeLi+Error'; this.onerror=null;">
+                <h1 class="font-poppins text-4xl md:text-5xl font-bold text-ccee-cinza-escuro mb-4">
+                    Liberdade Energética na Palma da Sua Mão
+                </h1>
+                <p class="text-lg md:text-xl text-ccee-cinza-medio mb-8 max-w-2xl mx-auto">
+                    A forma mais simples e inteligente de migrar para o Mercado Livre de Energia.
+                </p>
+                <a href="#descubra" class="font-poppins bg-ccee-verde-agua text-white font-semibold py-3 px-8 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 ease-in-out transform hover:scale-105 pulse-animation">
+                    Analise Sua Conta Agora
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. "Tire uma Foto e Descubra" Section -->
+    <section id="descubra" class="py-16 md:py-20 section-transition">
+        <div class="container mx-auto px-6">
+            <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
+                Simples Assim: Sua Conta de Luz, Seu Poder de Escolha.
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8 items-start">
+                <!-- Step 1 -->
+                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-ccee-verde-agua text-white rounded-full font-bold text-2xl">1</div>
+                    <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <h3 class="font-poppins text-xl font-semibold mb-2 text-ccee-cinza-escuro">Fotografe sua conta de luz</h3>
+                    <p class="text-ccee-cinza-medio">Use seu celular para capturar uma imagem clara da sua fatura de energia.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-ccee-verde-agua text-white rounded-full font-bold text-2xl">2</div>
+                    <div class="flex justify-center items-center space-x-2 mb-4">
+                        <svg class="w-12 h-12 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        <span class="text-2xl font-bold text-gray-400">&rarr;</span>
+                        <div class="text-xs text-gray-500">
+                            <!-- CCEE Logo - Consider using an official CCEE logo if available and permitted -->
+                            <img src="https://placehold.co/80x40/004A77/FFFFFF?text=CCEE" alt="CCEE Logo" class="h-8 mx-auto mb-1 opacity-75" onerror="this.src='https://placehold.co/80x40/CCCCCC/FFFFFF?text=CCEE+Error'; this.onerror=null;">
+                            <span class="font-semibold">Site CCEE</span>
+                        </div>
+                    </div>
+                    <h3 class="font-poppins text-xl font-semibold mb-2 text-ccee-cinza-escuro">Envie para a MeLi (via CCEE)</h3>
+                    <p class="text-ccee-cinza-medio">Nossa ferramenta integrada ao portal CCEE processa sua conta com segurança.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+                    <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-ccee-verde-agua text-white rounded-full font-bold text-2xl">3</div>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4 border border-gray-200">
+                        <div class="animate-pulse flex space-x-4 mb-3" id="loading-analysis" style="display: flex;"> <div class="rounded-full bg-gray-300 h-8 w-8"></div>
+                            <div class="flex-1 space-y-3 py-1">
+                                <div class="h-2 bg-gray-300 rounded"></div>
+                                <div class="space-y-2">
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div class="h-2 bg-gray-300 rounded col-span-1"></div>
+                                        <div class="h-2 bg-gray-300 rounded col-span-2"></div>
+                                    </div>
+                                    <div class="h-2 bg-gray-300 rounded"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="analysis-result" style="display: none;">
+                            <p class="text-sm text-ccee-cinza-medio">Concessionária: <span class="font-semibold text-ccee-azul-petroleo">Exemplo Energia S.A.</span></p>
+                            <img src="https://placehold.co/100x30/004A77/FFFFFF?text=Logo+Conces." alt="Logo Concessionária" class="h-6 my-1 opacity-80" onerror="this.src='https://placehold.co/100x30/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
+                            <p class="text-sm text-ccee-cinza-medio mt-1">Consumo Médio: <span id="simulated-consumption" class="font-semibold text-ccee-cinza-escuro">350 kWh/mês</span></p>
+                            <div class="mt-2 p-2 bg-ccee-amarelo-luz rounded-md">
+                                <p class="text-sm font-semibold text-ccee-cinza-escuro">Economia Potencial Mensal: <span id="simulated-savings" class="text-lg">R$ 75,00</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="font-poppins text-xl font-semibold mb-2 text-ccee-cinza-escuro">Receba sua análise personalizada</h3>
+                    <p class="text-ccee-cinza-medio">Descubra seu consumo, perfil e o quanto você pode economizar.</p>
+                     <button id="explainBillButton" class="mt-4 font-poppins bg-ccee-azul-petroleo text-white font-semibold py-2 px-4 rounded-lg text-sm hover:bg-ccee-azul-petroleo-dark transition duration-300 ease-in-out">
+                        ✨ Entender Melhor Minha Conta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. "Compare e Economize" Section -->
+    <section id="compare" class="py-16 md:py-20 bg-ccee-cinza-claro section-transition">
+        <div class="container mx-auto px-6">
+            <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
+                Encontre as Melhores Ofertas para Você
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="offerCardsContainer">
+                <!-- Offer Card 1 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card"
+                     data-name="Energia Solar Varejo"
+                     data-tarifa="R$ 0,55/kWh"
+                     data-renewable="true"
+                     data-savings="R$60"
+                     data-details="Contrato de 12 meses;Energia Limpa Certificada;Suporte 24/7">
+                    <div class="p-6 flex-grow">
+                        <img src="https://placehold.co/150x50/3EC6A6/FFFFFF?text=Energia+Solar+Varejo" alt="Energia Solar Varejo Logo" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
+                        <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Energia Solar Varejo</h3>
+                        <p class="text-ccee-cinza-medio mb-1">
+                            Tarifa TE: <span class="font-bold text-ccee-azul-petroleo">R$ 0,55/kWh</span>
+                            <span class="tooltip ml-1">
+                                <svg class="w-4 h-4 inline text-gray-400 cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                <span class="tooltiptext">Tarifa de Energia (TE) é o valor em Reais por quilowatt-hora (R$/kWh) referente ao consumo de energia elétrica.</span>
+                            </span>
+                        </p>
+                        <div class="inline-flex items-center bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-3">
+                            <svg class="w-3 h-3 mr-1.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a1 1 0 011-1h14a1 1 0 011 1v4.293zM16 5H4v4.293l7 7 7-7V5zM10 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                            Energia Renovável
+                        </div>
+                        <div class="my-3">
+                            <p class="text-sm text-ccee-cinza-medio mb-1">Economia Estimada vs. Mercado Regulado:</p>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-ccee-amarelo-luz h-4 rounded-full text-xs font-medium text-ccee-cinza-escuro text-center p-0.5 leading-none" style="width: 25%">R$60</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-ccee-cinza-medio space-y-1 list-disc list-inside mb-4">
+                            <li>Contrato de 12 meses</li>
+                            <li>Energia Limpa Certificada</li>
+                            <li>Suporte 24/7</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-gray-50">
+                        <button class="w-full bg-ccee-azul-petroleo text-white font-poppins font-semibold py-2 px-4 rounded-lg hover:bg-ccee-azul-petroleo-dark transition duration-300">
+                            Ver Detalhes
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Offer Card 2 -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card"
+                     data-name="Livre Energia Plus"
+                     data-tarifa="R$ 0,52/kWh"
+                     data-renewable="false"
+                     data-savings="R$70"
+                     data-details="Contrato de 24 meses;Flexibilidade contratual;Atendimento dedicado">
+                    <div class="p-6 flex-grow">
+                        <img src="https://placehold.co/150x50/004A77/FFFFFF?text=Livre+Energia+Plus" alt="Livre Energia Plus Logo" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
+                        <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Livre Energia Plus</h3>
+                        <p class="text-ccee-cinza-medio mb-1">
+                            Tarifa TE: <span class="font-bold text-ccee-azul-petroleo">R$ 0,52/kWh</span>
+                             <span class="tooltip ml-1">
+                                <svg class="w-4 h-4 inline text-gray-400 cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                <span class="tooltiptext">Tarifa de Energia (TE) é o valor em Reais por quilowatt-hora (R$/kWh) referente ao consumo de energia elétrica.</span>
+                            </span>
+                        </p>
+                        <div class="my-3 pt-7"> <p class="text-sm text-ccee-cinza-medio mb-1">Economia Estimada vs. Mercado Regulado:</p>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-ccee-amarelo-luz h-4 rounded-full text-xs font-medium text-ccee-cinza-escuro text-center p-0.5 leading-none" style="width: 30%">R$70</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-ccee-cinza-medio space-y-1 list-disc list-inside mb-4">
+                            <li>Contrato de 24 meses</li>
+                            <li>Flexibilidade contratual</li>
+                            <li>Atendimento dedicado</li>
+                        </ul>
+                    </div>
+                     <div class="p-6 bg-gray-50">
+                        <button class="w-full bg-ccee-azul-petroleo text-white font-poppins font-semibold py-2 px-4 rounded-lg hover:bg-ccee-azul-petroleo-dark transition duration-300">
+                            Escolher esta Oferta
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Offer Card 3 (Example) -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card"
+                     data-name="EcoPower Brasil"
+                     data-tarifa="R$ 0,58/kWh"
+                     data-renewable="true"
+                     data-savings="R$50"
+                     data-details="Sem fidelidade;100% Digital;Foco em sustentabilidade">
+                    <div class="p-6 flex-grow">
+                        <img src="https://placehold.co/150x50/3EC6A6/000000?text=EcoPower+Brasil" alt="EcoPower Brasil Logo" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
+                        <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">EcoPower Brasil</h3>
+                        <p class="text-ccee-cinza-medio mb-1">
+                            Tarifa TE: <span class="font-bold text-ccee-azul-petroleo">R$ 0,58/kWh</span>
+                            <span class="tooltip ml-1">
+                                <svg class="w-4 h-4 inline text-gray-400 cursor-pointer" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                                <span class="tooltiptext">Tarifa de Energia (TE) é o valor em Reais por quilowatt-hora (R$/kWh) referente ao consumo de energia elétrica.</span>
+                            </span>
+                        </p>
+                         <div class="inline-flex items-center bg-green-100 text-green-700 text-xs font-semibold px-2.5 py-0.5 rounded-full mb-3">
+                            <svg class="w-3 h-3 mr-1.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a1 1 0 011-1h14a1 1 0 011 1v4.293zM16 5H4v4.293l7 7 7-7V5zM10 12a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                            Energia Renovável
+                        </div>
+                        <div class="my-3">
+                            <p class="text-sm text-ccee-cinza-medio mb-1">Economia Estimada vs. Mercado Regulado:</p>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-ccee-amarelo-luz h-4 rounded-full text-xs font-medium text-ccee-cinza-escuro text-center p-0.5 leading-none" style="width: 20%">R$50</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-ccee-cinza-medio space-y-1 list-disc list-inside mb-4">
+                            <li>Sem fidelidade</li>
+                            <li>100% Digital</li>
+                            <li>Foco em sustentabilidade</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-gray-50">
+                        <button class="w-full bg-ccee-azul-petroleo text-white font-poppins font-semibold py-2 px-4 rounded-lg hover:bg-ccee-azul-petroleo-dark transition duration-300">
+                            Ver Detalhes
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <button id="compareOffersButton" class="font-poppins bg-ccee-verde-agua text-white font-semibold py-3 px-6 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 ease-in-out">
+                    ✨ Qual oferta é ideal para mim?
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. "Fale com a MeLi no WhatsApp" Section -->
+    <section id="whatsapp" class="py-16 md:py-20 section-transition">
+        <div class="container mx-auto px-6">
+            <div class="lg:flex lg:items-center lg:justify-between">
+                <div class="lg:w-1/2">
+                    <h2 class="font-poppins text-3xl md:text-4xl font-bold text-ccee-cinza-escuro mb-6">
+                        Precisa de Ajuda? <br class="hidden md:block"> Converse com a MeLi no WhatsApp.
+                    </h2>
+                    <p class="text-ccee-cinza-medio text-lg mb-8">
+                        Nossa assistente virtual está pronta para tirar suas dúvidas, analisar sua conta e te guiar pelo Mercado Livre de Energia de forma rápida e intuitiva.
+                    </p>
+                    <a href="https://wa.me/SEUNUMEROAQUI?text=Olá%20MeLi!" target="_blank" class="inline-flex items-center bg-green-500 text-white font-poppins font-semibold py-3 px-6 rounded-lg text-lg hover:bg-green-600 transition duration-300 transform hover:scale-105">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.001 2C5.583 2 2 5.582 2 10.001c0 1.518.413 2.943 1.138 4.193l-1.013 3.688a.695.695 0 00.188.744.697.697 0 00.556.22H6.56c1.205.66 2.587 1.015 4.026 1.015 4.418 0 8.001-3.582 8.001-8.001S14.418 2 10.001 2zm3.817 11.242c-.23.128-.83.41-1.002.458-.173.048-.297.072-.488-.072-.19-.144-.795-.734-1.515-1.453-.576-.575-.97-1.028-1.088-1.207-.118-.18-.012-.276.06-.372.06-.084.133-.204.2-.276.067-.072.102-.12.144-.204.042-.084.024-.156-.012-.216-.036-.06-.297-.708-.405-.972-.108-.252-.228-.216-.312-.216h-.144c-.084 0-.216.024-.324.12-.108.096-.405.396-.405.972s.405 1.128.465 1.212c.06.084.807.972 1.977 1.728.297.192.447.264.633.36.312.168.486.144.648.084.18-.072.552-.288.684-.552.132-.264.132-.492.096-.552-.024-.072-.096-.108-.192-.18z"></path></svg>
+                        Iniciar Conversa no WhatsApp
+                    </a>
+                     <!-- USER: Replace with QR code for your WhatsApp -->
+                    <img src="https://placehold.co/150x150/FFFFFF/3A3A3A?text=QR+WhatsApp" alt="QR Code para WhatsApp" class="mt-6 rounded-lg shadow-md h-32 w-32 md:h-40 md:w-40" onerror="this.src='https://placehold.co/150x150/CCCCCC/FFFFFF?text=QR+Error'; this.onerror=null;">
+
+                </div>
+                <div class="lg:w-1/2 mt-10 lg:mt-0">
+                    <div class="bg-gray-200 p-4 sm:p-6 rounded-xl shadow-2xl max-w-md mx-auto">
+                        <div class="flex items-center mb-4 pb-2 border-b border-gray-300">
+                            <!-- USER: Replace the src with the actual path to your hosted MeLi avatar image (smaller version) -->
+                            <img src="images/avatar-whatsapp.png" alt="Avatar MeLi WhatsApp" class="w-10 h-10 rounded-full mr-3 shadow" onerror="this.src='https://placehold.co/40x40/CCCCCC/FFFFFF?text=MeLi+Error'; this.onerror=null;">
+                            <div>
+                                <p class="font-semibold text-ccee-cinza-escuro">MeLi Assistente</p>
+                                <p class="text-xs text-green-600">online</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3 h-64 overflow-y-auto p-2 rounded-md bg-white bg-opacity-50">
+                            <div class="flex">
+                                <div class="whatsapp-bubble-meli p-3 rounded-lg max-w-xs shadow">
+                                    Olá! A MeLi está aqui para te ajudar. Você gostaria de analisar sua conta de luz para ver o potencial de economia?
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <div class="whatsapp-bubble-user p-3 rounded-lg max-w-xs shadow text-ccee-cinza-escuro">
+                                    Olá, gostaria de saber mais sobre o mercado livre.
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="whatsapp-bubble-meli p-3 rounded-lg max-w-xs shadow">
+                                    Claro! O Mercado Livre de Energia permite que você escolha seu fornecedor e negocie melhores preços. Quer tentar uma análise?
+                                </div>
+                            </div>
+                             <div class="flex justify-end">
+                                <div class="whatsapp-bubble-user p-3 rounded-lg max-w-xs shadow text-ccee-cinza-escuro">
+                                    Sim, como faço?
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="whatsapp-bubble-meli p-3 rounded-lg max-w-xs shadow">
+                                    É simples! Você pode enviar uma foto da sua conta por aqui ou acessar a ferramenta no site da CCEE <span class="text-blue-600 hover:underline cursor-pointer">[link para ferramenta]</span>.
+                                </div>
+                            </div>
+                        </div>
+                         <div class="mt-4 flex">
+                            <input type="text" placeholder="Digite sua mensagem..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 ring-ccee-verde-agua">
+                            <button class="bg-ccee-verde-agua text-white p-2 rounded-r-lg hover:bg-ccee-verde-agua-dark">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 008 16.571V11.5a1 1 0 011-1h2a1 1 0 011 1v5.071a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. "Entenda sua Conta de Luz (Visual Law)" Section -->
+    <section id="visual-law" class="py-16 md:py-20 bg-ccee-cinza-claro section-transition">
+        <div class="container mx-auto px-6">
+            <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
+                Sua Conta de Luz Descomplicada
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="p-6 bg-white rounded-xl shadow-lg">
+                    <h3 class="font-poppins text-2xl font-semibold text-center text-ccee-cinza-medio mb-4">ANTES: Complexidade</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg border border-gray-300 filter blur-xs opacity-80">
+                        <p class="text-xs text-gray-500 leading-tight">
+                            FATURA DE ENERGIA ELÉTRICA - REF 05/2024<br>
+                            CLIENTE: JOÃO DA SILVA CPF: 123.456.789-00<br>
+                            END: RUA EXEMPLO, 123 - CIDADE EXEMPLO<br>
+                            CONTA CONTRATO: 987654321 INSTALAÇÃO: 123456789<br>
+                            ... (muitos códigos e números) ...<br>
+                            DESC. ITEM | UN | QTD | VL.UNIT | VL.TOTAL<br>
+                            ENERGIA ATIVA TE | kWh | 350 | 0.4123 | 144.30<br>
+                            ENERGIA ATIVA TUSD | kWh | 350 | 0.3876 | 135.66<br>
+                            ADIC BANDEIRA TARIF ESCASSEZ HIDRICA | - | - | - | 25.50<br>
+                            CIP MUNICIPAL | - | - | - | 15.80<br>
+                            ICMS ALIQ 25% BASE CALC 305.46 | % | - | - | 76.36<br>
+                            PIS/COFINS | - | - | - | 12.30<br>
+                            ... (mais termos técnicos) ...<br>
+                            TOTAL A PAGAR: <span class="font-bold">R$ 409,92</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-xl border-2 border-ccee-verde-agua">
+                    <h3 class="font-poppins text-2xl font-semibold text-center text-ccee-azul-petroleo mb-4">DEPOIS: Clareza com MeLi</h3>
+                    <div class="bg-white p-4 rounded-lg">
+                        <div class="flex items-center mb-3">
+                            <svg class="w-8 h-8 text-ccee-verde-agua mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            <h4 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro">Resumo da Sua Conta</h4>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                                <span class="text-ccee-cinza-medio">Consumo Total do Mês:</span>
+                                <span class="font-bold text-lg text-ccee-azul-petroleo">350 kWh</span>
+                            </div>
+                            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                <span class="text-ccee-cinza-medio">Valor Total da Fatura:</span>
+                                <span class="font-bold text-lg text-ccee-azul-petroleo">R$ 409,92</span>
+                            </div>
+                            <div class="p-3 bg-gray-100 rounded-lg">
+                                <p class="text-sm text-ccee-cinza-medio mb-1">Composição Principal:</p>
+                                <p class="text-sm text-ccee-cinza-escuro">Energia (TE + TUSD): <span class="font-semibold">R$ 279,96</span></p>
+                                <p class="text-sm text-ccee-cinza-escuro">Impostos e Taxas: <span class="font-semibold">R$ 129,96</span></p>
+                            </div>
+                            <div class="mt-3 p-3 bg-ccee-amarelo-luz rounded-lg text-center">
+                                <p class="text-ccee-cinza-escuro font-semibold">Com MeLi, você poderia economizar até <span class="text-xl">R$ 75,00</span> neste mês!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. "Contratos Descomplicados (Visual Law)" Section -->
+    <section class="py-16 md:py-20 section-transition">
+        <div class="container mx-auto px-6">
+            <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
+                Contratos de Energia sem Asteriscos
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-6 bg-white rounded-xl shadow-lg">
+                    <div class="flex items-center mb-3">
+                         <svg class="w-8 h-8 text-ccee-verde-agua mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <h4 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro">Cláusula de Vigência</h4>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <p class="text-ccee-cinza-medio mb-2"><strong>O que é:</strong> Período de validade do seu contrato.</p>
+                        <p class="text-ccee-cinza-medio"><strong class="text-ccee-azul-petroleo">Seu contrato:</strong> <span class="bg-yellow-100 px-1 rounded">12 meses</span>, iniciando em <span class="bg-yellow-100 px-1 rounded">01/07/2024</span>.</p>
+                        <p class="text-sm text-gray-500 mt-2">Renovação automática, a menos que cancelado com 30 dias de antecedência.</p>
+                    </div>
+                </div>
+                <div class="p-6 bg-white rounded-xl shadow-lg">
+                    <div class="flex items-center mb-3">
+                        <svg class="w-8 h-8 text-ccee-verde-agua mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <h4 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro">Condições de Pagamento</h4>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <p class="text-ccee-cinza-medio mb-2"><strong>Como pagar:</strong> Boleto bancário ou débito automático.</p>
+                        <p class="text-ccee-cinza-medio"><strong class="text-ccee-azul-petroleo">Vencimento:</strong> Todo <span class="bg-yellow-100 px-1 rounded">dia 10</span> de cada mês.</p>
+                        <p class="text-sm text-red-500 mt-2">Atraso superior a 5 dias pode gerar multa de 2% + juros.</p>
+                    </div>
+                </div>
+            </div>
+             <p class="text-center text-ccee-cinza-medio mt-10 text-lg">Utilizamos Visual Law para tornar os termos claros e compreensíveis, sem letras miúdas!</p>
+        </div>
+    </section>
+
+    <!-- 7. Nossos Valores Section -->
+    <section id="valores" class="py-16 md:py-20 bg-ccee-cinza-claro section-transition">
+        <div class="container mx-auto px-6">
+            <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
+                MeLi: Transparência, Autonomia e Você.
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                    <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Transparência</h3>
+                    <p class="text-ccee-cinza-medio">Informações claras e acessíveis sobre sua energia e contratos.</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Autonomia</h3>
+                    <p class="text-ccee-cinza-medio">Você no controle das suas escolhas energéticas, com poder de decisão.</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                     <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Empoderamento</h3>
+                    <p class="text-ccee-cinza-medio">Ferramentas e conhecimento para você tomar as melhores decisões.</p>
+                </div>
+                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9.004 9.004 0 008.688-6.29A7.001 7.001 0 0112 21zM3.312 14.71A9.004 9.004 0 0012 21a7.001 7.001 0 01-8.688-6.29zM12 3a9.004 9.004 0 018.688 6.29A7.001 7.001 0 0012 3zM3.312 9.29A9.004 9.004 0 0112 3a7.001 7.001 0 00-8.688 6.29z"></path></svg>
+                    <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Inclusão Digital</h3>
+                    <p class="text-ccee-cinza-medio">Simplificando o acesso ao mercado livre para todos, de forma intuitiva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Footer & Call to Action -->
+    <footer class="bg-ccee-azul-petroleo text-white py-16 section-transition"> <!-- Updated footer background -->
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-poppins text-3xl font-bold mb-6">Pronto para Economizar e Ter Mais Controle?</h2>
+            <p class="text-gray-300 mb-8 text-lg max-w-xl mx-auto">
+                Junte-se à MeLi e descubra um novo mundo de possibilidades para sua energia.
+            </p>
+            <a href="#descubra" class="font-poppins bg-ccee-verde-agua text-white font-semibold py-3 px-8 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 ease-in-out transform hover:scale-105">
+                Analise Sua Conta Agora
+            </a>
+            <div class="mt-12 border-t border-gray-600 pt-8"> <!-- Adjusted border color for contrast -->
+                <p class="text-gray-300 mb-2">Dúvidas? Entre em contato: <a href="mailto:contato@melienergia.com.br" class="hover:text-ccee-verde-agua underline">contato@melienergia.com.br</a></p>
+                <p class="text-sm text-gray-400 mb-2">Uma iniciativa para simplificar o mercado de energia, em parceria com a CCEE.</p>
+                <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> MeLi Energia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Gemini API responses -->
+    <div id="geminiModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeModalButton">&times;</span>
+            <h3 id="modalTitle" class="font-poppins text-2xl font-semibold text-ccee-azul-petroleo mb-4">Insights da MeLi ✨</h3>
+            <div id="modalLoader" class="loader" style="display: none;"></div>
+            <div id="modalResponse" class="text-ccee-cinza-escuro leading-relaxed">
+                <!-- Gemini API response will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simulate loading for analysis preview
+        setTimeout(() => {
+            const loadingDiv = document.getElementById('loading-analysis');
+            const resultDiv = document.getElementById('analysis-result');
+            if (loadingDiv && resultDiv) {
+                loadingDiv.style.display = 'none';
+                resultDiv.style.display = 'block';
+            }
+        }, 1500);
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        const geminiModal = document.getElementById('geminiModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalResponse = document.getElementById('modalResponse');
+        const modalLoader = document.getElementById('modalLoader');
+
+        function openModal() {
+            modalResponse.innerHTML = '';
+            modalLoader.style.display = 'block';
+            geminiModal.style.display = 'block';
+        }
+
+        function closeModal() {
+            geminiModal.style.display = 'none';
+            modalLoader.style.display = 'none';
+        }
+        closeModalButton.onclick = closeModal;
+        window.onclick = function(event) {
+            if (event.target == geminiModal) {
+                closeModal();
+            }
+        }
+
+        const apiKey = ""; // IMPORTANT: Leave empty, Canvas will provide it.
+
+        async function callGeminiAPI(prompt) {
+            openModal();
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            
+            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+            const payload = { contents: chatHistory };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorBody = await response.text();
+                    throw new Error(`HTTP error! status: ${response.status}, body: ${errorBody}`);
+                }
+
+                const result = await response.json();
+                modalLoader.style.display = 'none';
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const rawText = result.candidates[0].content.parts[0].text;
+                    modalResponse.innerHTML = rawText.replace(/\n/g, '<br>');
+                } else {
+                    console.error('Unexpected response structure:', result);
+                    modalResponse.textContent = 'Desculpe, não consegui processar a informação. Tente novamente.';
+                }
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                modalLoader.style.display = 'none';
+                modalResponse.textContent = `Erro ao buscar informações da IA: ${error.message}. Verifique o console para mais detalhes.`;
+            }
+        }
+
+        const explainBillButton = document.getElementById('explainBillButton');
+        if (explainBillButton) {
+            explainBillButton.onclick = function() {
+                const consumption = document.getElementById('simulated-consumption')?.textContent || 'um valor típico';
+                const savings = document.getElementById('simulated-savings')?.textContent || 'um valor interessante';
+                
+                const prompt = `Sou um usuário da MeLi, uma plataforma que ajuda a migrar para o mercado livre de energia no Brasil.
+Minha análise simulada mostrou um consumo de ${consumption} e uma economia potencial de ${savings} por mês.
+Por favor, me explique de forma simples e amigável o que esses números significam na minha conta de luz.
+Dê dicas curtas sobre como posso entender melhor os componentes da minha fatura de energia e como a MeLi pode me ajudar a economizar.
+Use uma linguagem clara, como se estivesse conversando comigo. Formate a resposta com parágrafos.`;
+                
+                modalTitle.textContent = "✨ Entendendo sua Conta com a MeLi";
+                callGeminiAPI(prompt);
+            }
+        }
+
+        const compareOffersButton = document.getElementById('compareOffersButton');
+        if (compareOffersButton) {
+            compareOffersButton.onclick = function() {
+                const offerCards = document.querySelectorAll('#offerCardsContainer .offer-card');
+                let offersDetails = "Aqui estão algumas ofertas de energia disponíveis:\n";
+                offerCards.forEach(card => {
+                    const name = card.dataset.name;
+                    const tarifa = card.dataset.tarifa;
+                    const renewable = card.dataset.renewable === 'true' ? "Sim" : "Não";
+                    const savings = card.dataset.savings;
+                    const details = card.dataset.details.split(';').join(', ');
+                    offersDetails += `- ${name}: Tarifa ${tarifa}, Energia Renovável: ${renewable}, Economia Estimada: ${savings}, Detalhes: ${details}\n`;
+                });
+
+                const prompt = `Sou um usuário da MeLi e estou comparando estas ofertas de energia no mercado livre brasileiro:
+${offersDetails}
+Considerando que busco uma boa economia, mas também valorizo energia limpa e um contrato com termos justos, qual dessas ofertas você me recomendaria ou quais pontos devo considerar para escolher a melhor para mim?
+Por favor, forneça uma análise curta e direta, em português do Brasil. Formate a resposta com parágrafos.`;
+
+                modalTitle.textContent = "✨ Comparando Ofertas com a MeLi";
+                callGeminiAPI(prompt);
+            }
+        }
+    </script>
+</body>
+</html>
