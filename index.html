@@ -22,37 +22,22 @@
         .bg-ccee-verde-agua { background-color: #3EC6A6; }
         .text-ccee-verde-agua { color: #3EC6A6; }
         .border-ccee-verde-agua { border-color: #3EC6A6; }
-        .hover\:bg-ccee-verde-agua-dark:hover { background-color: #35B094; } /* Darker shade */
+        .hover\:bg-ccee-verde-agua-dark:hover { background-color: #35B094; }
         .ring-ccee-verde-agua:focus { ring-color: #3EC6A6; }
 
 
         .bg-ccee-azul-petroleo { background-color: #004A77; }
         .text-ccee-azul-petroleo { color: #004A77; }
         .border-ccee-azul-petroleo { border-color: #004A77; }
-        .hover\:bg-ccee-azul-petroleo-dark:hover { background-color: #003B60; } /* Darker shade */
+        .hover\:bg-ccee-azul-petroleo-dark:hover { background-color: #003B60; }
 
         .bg-ccee-amarelo-luz { background-color: #FFD84C; }
-        .text-ccee-amarelo-luz { color: #FFD84C; } /* Usually for text on dark backgrounds or highlights */
+        .text-ccee-amarelo-luz { color: #FFD84C; }
 
         .bg-ccee-cinza-claro { background-color: #F4F7F8; }
-        .text-ccee-cinza-escuro { color: #3A3A3A; } /* For primary text */
-        .text-ccee-cinza-medio { color: #777777; } /* For secondary text if needed */
+        .text-ccee-cinza-escuro { color: #3A3A3A; }
+        .text-ccee-cinza-medio { color: #777777; }
 
-
-        /* Original Custom Brand Colors (commented out or replaced)
-        .bg-verde-agua-suave { background-color: #6EE7B7; }
-        .text-verde-agua-suave { color: #6EE7B7; }
-        .hover\:bg-verde-agua-suave-dark:hover { background-color: #4DDAB0; }
-
-        .bg-azul-petroleo { background-color: #0A9396; }
-        .text-azul-petroleo { color: #0A9396; }
-        .hover\:bg-azul-petroleo-dark:hover { background-color: #087E80; }
-
-        .bg-amarelo-luz { background-color: #FEEA00; }
-        .text-amarelo-luz { color: #FEEA00; }
-
-        .bg-cinza-claro { background-color: #f0f4f8; }
-        */
 
         .tooltip {
             position: relative;
@@ -93,7 +78,7 @@
             animation: pulse 2s infinite;
         }
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(62, 198, 166, 0.7); } /* Adjusted pulse color */
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(62, 198, 166, 0.7); }
             70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(62, 198, 166, 0); }
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(62, 198, 166, 0); }
         }
@@ -106,12 +91,11 @@
             align-self: flex-start;
         }
         .brand-gradient {
-            background: linear-gradient(to right, #3EC6A6, #004A77); /* Updated gradient */
+            background: linear-gradient(to right, #3EC6A6, #004A77);
         }
         .section-transition {
             transition: all 0.5s ease-in-out;
         }
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -148,10 +132,9 @@
             text-decoration: none;
             cursor: pointer;
         }
-        /* Loading Spinner */
         .loader {
             border: 5px solid #f3f3f3;
-            border-top: 5px solid #3EC6A6; /* Updated loader color */
+            border-top: 5px solid #3EC6A6;
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -162,6 +145,15 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Estilos para a nova Seção Hero */
+        .hero-bg-image {
+            /* USER: Certifique-se que o caminho para sua imagem está correto! */
+            background-image: url('images/head-site.png'); /* << ATENÇÃO AQUI */
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
     </style>
 </head>
 <body class="bg-white text-ccee-cinza-escuro">
@@ -169,7 +161,6 @@
     <!-- Navigation -->
     <nav class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <!-- User: Replace with your MeLi logo if you have one as an image -->
             <a href="#" class="font-poppins font-bold text-2xl text-ccee-azul-petroleo">MeLi</a>
             <div class="space-x-4">
                 <a href="#descubra" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Descubra</a>
@@ -181,27 +172,30 @@
         </div>
     </nav>
 
-    <!-- 1. Hero Section -->
-    <section id="hero" class="bg-ccee-cinza-claro py-16 md:py-24 section-transition">
-        <div class="container mx-auto px-6 text-center">
-            <div class="max-w-3xl mx-auto">
-                <!-- IMAGEM MODIFICADA ABAIXO -->
-                <img src="images/avatar-principal.png" alt="Avatar MeLi" class="w-40 h-40 mx-auto mb-8 rounded-full shadow-lg object-cover" onerror="this.src='https://placehold.co/160x160/CCCCCC/FFFFFF?text=MeLi+Error'; this.onerror=null;">
-                
-                <h1 class="font-poppins text-4xl md:text-5xl font-bold text-ccee-cinza-escuro mb-4">
+    <!-- 1. Hero Section - ATUALIZADA -->
+    <section id="hero" class="hero-bg-image relative text-white section-transition min-h-[70vh] md:min-h-[80vh] flex items-center justify-center">
+        <!-- Overlay para melhorar a legibilidade do texto -->
+        <div class="absolute inset-0 bg-black opacity-40"></div>
+
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="max-w-3xl mx-auto py-16 md:py-24">
+                <!-- O avatar individual foi removido, pois a imagem de fundo já o contém -->
+                <h1 class="font-poppins text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight shadow-text">
                     Liberdade Energética na Palma da Sua Mão
                 </h1>
-                <p class="text-lg md:text-xl text-ccee-cinza-medio mb-8 max-w-2xl mx-auto">
+                <p class="text-lg md:text-xl mb-10 max-w-2xl mx-auto shadow-text-sm">
                     A forma mais simples e inteligente de migrar para o Mercado Livre de Energia.
                 </p>
-                <a href="#descubra" class="font-poppins bg-ccee-verde-agua text-white font-semibold py-3 px-8 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 ease-in-out transform hover:scale-105 pulse-animation">
+                <a href="#descubra" class="font-poppins bg-ccee-verde-agua text-white font-semibold py-4 px-10 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 ease-in-out transform hover:scale-105 pulse-animation shadow-md">
                     Analise Sua Conta Agora
                 </a>
             </div>
         </div>
     </section>
+    <!-- Fim da Seção Hero Atualizada -->
 
-    <!-- 2. "Tire uma Foto e Descubra" Section -->
+
+    <!-- 2. "Tire uma Foto e Descubra" Section (mantém o restante do código igual) -->
     <section id="descubra" class="py-16 md:py-20 section-transition">
         <div class="container mx-auto px-6">
             <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
@@ -222,8 +216,7 @@
                         <svg class="w-12 h-12 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         <span class="text-2xl font-bold text-gray-400">&rarr;</span>
                         <div class="text-xs text-gray-500">
-                            <!-- CCEE Logo - Consider using an official CCEE logo if available and permitted -->
-                            <img src="https://placehold.co/80x40/004A77/FFFFFF?text=CCEE" alt="CCEE Logo" class="h-8 mx-auto mb-1 opacity-75" onerror="this.src='https://placehold.co/80x40/CCCCCC/FFFFFF?text=CCEE+Error'; this.onerror=null;">
+                            <img src="https://placehold.co/80x40/004A77/FFFFFF?text=CCEE" alt="Logo CCEE" class="h-8 mx-auto mb-1 opacity-75" onerror="this.src='https://placehold.co/80x40/CCCCCC/FFFFFF?text=CCEE+Error'; this.onerror=null;">
                             <span class="font-semibold">Site CCEE</span>
                         </div>
                     </div>
@@ -265,6 +258,9 @@
         </div>
     </section>
 
+    <!-- O restante do seu HTML continua aqui (Seção Compare, WhatsApp, Visual Law, Valores, Footer, Modal, Script) -->
+    <!-- ... (cole o restante do seu código HTML aqui, não precisa repetir tudo se apenas a Seção Hero mudou) ... -->
+
     <!-- 3. "Compare e Economize" Section -->
     <section id="compare" class="py-16 md:py-20 bg-ccee-cinza-claro section-transition">
         <div class="container mx-auto px-6">
@@ -280,7 +276,7 @@
                      data-savings="R$60"
                      data-details="Contrato de 12 meses;Energia Limpa Certificada;Suporte 24/7">
                     <div class="p-6 flex-grow">
-                        <img src="https://placehold.co/150x50/3EC6A6/FFFFFF?text=Energia+Solar+Varejo" alt="Energia Solar Varejo Logo" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
+                        <img src="https://placehold.co/150x50/3EC6A6/FFFFFF?text=Energia+Solar+Varejo" alt="Logo Energia Solar Varejo" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
                         <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Energia Solar Varejo</h3>
                         <p class="text-ccee-cinza-medio mb-1">
                             Tarifa TE: <span class="font-bold text-ccee-azul-petroleo">R$ 0,55/kWh</span>
@@ -312,7 +308,6 @@
                     </div>
                 </div>
 
-                <!-- Offer Card 2 -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card"
                      data-name="Livre Energia Plus"
                      data-tarifa="R$ 0,52/kWh"
@@ -320,7 +315,7 @@
                      data-savings="R$70"
                      data-details="Contrato de 24 meses;Flexibilidade contratual;Atendimento dedicado">
                     <div class="p-6 flex-grow">
-                        <img src="https://placehold.co/150x50/004A77/FFFFFF?text=Livre+Energia+Plus" alt="Livre Energia Plus Logo" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
+                        <img src="https://placehold.co/150x50/004A77/FFFFFF?text=Livre+Energia+Plus" alt="Logo Livre Energia Plus" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
                         <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Livre Energia Plus</h3>
                         <p class="text-ccee-cinza-medio mb-1">
                             Tarifa TE: <span class="font-bold text-ccee-azul-petroleo">R$ 0,52/kWh</span>
@@ -347,7 +342,6 @@
                     </div>
                 </div>
 
-                <!-- Offer Card 3 (Example) -->
                 <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card"
                      data-name="EcoPower Brasil"
                      data-tarifa="R$ 0,58/kWh"
@@ -355,7 +349,7 @@
                      data-savings="R$50"
                      data-details="Sem fidelidade;100% Digital;Foco em sustentabilidade">
                     <div class="p-6 flex-grow">
-                        <img src="https://placehold.co/150x50/3EC6A6/000000?text=EcoPower+Brasil" alt="EcoPower Brasil Logo" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
+                        <img src="https://placehold.co/150x50/3EC6A6/000000?text=EcoPower+Brasil" alt="Logo EcoPower Brasil" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
                         <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">EcoPower Brasil</h3>
                         <p class="text-ccee-cinza-medio mb-1">
                             Tarifa TE: <span class="font-bold text-ccee-azul-petroleo">R$ 0,58/kWh</span>
@@ -396,7 +390,7 @@
     </section>
 
     <!-- 4. "Fale com a MeLi no WhatsApp" Section -->
-    <section id="whatsapp" class="py-16 md:py-20 section-transition">
+     <section id="whatsapp" class="py-16 md:py-20 section-transition">
         <div class="container mx-auto px-6">
             <div class="lg:flex lg:items-center lg:justify-between">
                 <div class="lg:w-1/2">
@@ -410,14 +404,12 @@
                         <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.001 2C5.583 2 2 5.582 2 10.001c0 1.518.413 2.943 1.138 4.193l-1.013 3.688a.695.695 0 00.188.744.697.697 0 00.556.22H6.56c1.205.66 2.587 1.015 4.026 1.015 4.418 0 8.001-3.582 8.001-8.001S14.418 2 10.001 2zm3.817 11.242c-.23.128-.83.41-1.002.458-.173.048-.297.072-.488-.072-.19-.144-.795-.734-1.515-1.453-.576-.575-.97-1.028-1.088-1.207-.118-.18-.012-.276.06-.372.06-.084.133-.204.2-.276.067-.072.102-.12.144-.204.042-.084.024-.156-.012-.216-.036-.06-.297-.708-.405-.972-.108-.252-.228-.216-.312-.216h-.144c-.084 0-.216.024-.324.12-.108.096-.405.396-.405.972s.405 1.128.465 1.212c.06.084.807.972 1.977 1.728.297.192.447.264.633.36.312.168.486.144.648.084.18-.072.552-.288.684-.552.132-.264.132-.492.096-.552-.024-.072-.096-.108-.192-.18z"></path></svg>
                         Iniciar Conversa no WhatsApp
                     </a>
-                     <!-- USER: Replace with QR code for your WhatsApp -->
                     <img src="https://placehold.co/150x150/FFFFFF/3A3A3A?text=QR+WhatsApp" alt="QR Code para WhatsApp" class="mt-6 rounded-lg shadow-md h-32 w-32 md:h-40 md:w-40" onerror="this.src='https://placehold.co/150x150/CCCCCC/FFFFFF?text=QR+Error'; this.onerror=null;">
 
                 </div>
                 <div class="lg:w-1/2 mt-10 lg:mt-0">
                     <div class="bg-gray-200 p-4 sm:p-6 rounded-xl shadow-2xl max-w-md mx-auto">
                         <div class="flex items-center mb-4 pb-2 border-b border-gray-300">
-                            <!-- USER: Replace the src with the actual path to your hosted MeLi avatar image (smaller version) -->
                             <img src="images/avatar-whatsapp.png" alt="Avatar MeLi WhatsApp" class="w-10 h-10 rounded-full mr-3 shadow" onerror="this.src='https://placehold.co/40x40/CCCCCC/FFFFFF?text=MeLi+Error'; this.onerror=null;">
                             <div>
                                 <p class="font-semibold text-ccee-cinza-escuro">MeLi Assistente</p>
@@ -588,7 +580,7 @@
     </section>
 
     <!-- 8. Footer & Call to Action -->
-    <footer class="bg-ccee-azul-petroleo text-white py-16 section-transition"> <!-- Updated footer background -->
+    <footer class="bg-ccee-azul-petroleo text-white py-16 section-transition">
         <div class="container mx-auto px-6 text-center">
             <h2 class="font-poppins text-3xl font-bold mb-6">Pronto para Economizar e Ter Mais Controle?</h2>
             <p class="text-gray-300 mb-8 text-lg max-w-xl mx-auto">
@@ -597,7 +589,7 @@
             <a href="#descubra" class="font-poppins bg-ccee-verde-agua text-white font-semibold py-3 px-8 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 ease-in-out transform hover:scale-105">
                 Analise Sua Conta Agora
             </a>
-            <div class="mt-12 border-t border-gray-600 pt-8"> <!-- Adjusted border color for contrast -->
+            <div class="mt-12 border-t border-gray-600 pt-8">
                 <p class="text-gray-300 mb-2">Dúvidas? Entre em contato: <a href="mailto:contato@melienergia.com.br" class="hover:text-ccee-verde-agua underline">contato@melienergia.com.br</a></p>
                 <p class="text-sm text-gray-400 mb-2">Uma iniciativa para simplificar o mercado de energia, em parceria com a CCEE.</p>
                 <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> MeLi Energia. Todos os direitos reservados.</p>
@@ -612,7 +604,6 @@
             <h3 id="modalTitle" class="font-poppins text-2xl font-semibold text-ccee-azul-petroleo mb-4">Insights da MeLi ✨</h3>
             <div id="modalLoader" class="loader" style="display: none;"></div>
             <div id="modalResponse" class="text-ccee-cinza-escuro leading-relaxed">
-                <!-- Gemini API response will be injected here -->
             </div>
         </div>
     </div>
@@ -666,7 +657,7 @@
             }
         }
 
-        const apiKey = ""; // IMPORTANT: Leave empty, Canvas will provide it.
+        const apiKey = "";
 
         async function callGeminiAPI(prompt) {
             openModal();
