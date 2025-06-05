@@ -86,7 +86,7 @@
             background-color: #DCF8C6;
             align-self: flex-end;
         }
-        .whatsapp-bubble-meli { /* Renamed from .whatsapp-bubble-meli to ensure consistency, though it's a style for the bot */
+        .whatsapp-bubble-meli {
             background-color: #E5E5EA;
             align-self: flex-start;
         }
@@ -148,8 +148,7 @@
 
         /* Estilos para a nova Seção Hero */
         .hero-bg-image {
-            /* USER: Certifique-se que o caminho para sua imagem está correto! */
-            background-image: url('images/headsite2.png'); /* << ATENÇÃO AQUI */
+            background-image: url('images/headsite2.png'); /* Nome do arquivo conforme o usuário informou */
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -167,18 +166,16 @@
             <div class="space-x-4">
                 <a href="#descubra" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Descubra</a>
                 <a href="#compare" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Compare</a>
-                <a href="#whatsapp" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">WhatsApp</a>
+                <a href="#whatsapp" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Chatbot IA</a>
                 <a href="#visual-law" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Visual Law</a>
                 <a href="#valores" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Valores</a>
             </div>
         </div>
     </nav>
 
-    <!-- 1. Hero Section - ATUALIZADA -->
+    <!-- 1. Hero Section -->
     <section id="hero" class="hero-bg-image relative text-white section-transition min-h-[70vh] md:min-h-[80vh] flex items-center justify-center">
-        <!-- Overlay para melhorar a legibilidade do texto -->
         <div class="absolute inset-0 bg-black opacity-40"></div>
-
         <div class="container mx-auto px-6 text-center relative z-10">
             <div class="max-w-3xl mx-auto py-16 md:py-24">
                 <h1 class="font-poppins text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight shadow-text">
@@ -193,7 +190,6 @@
             </div>
         </div>
     </section>
-    <!-- Fim da Seção Hero Atualizada -->
 
 
     <!-- 2. "Tire uma Foto e Descubra" Section -->
@@ -203,14 +199,12 @@
                 Simples Assim: Sua Conta de Luz, Seu Poder de Escolha.
             </h2>
             <div class="grid md:grid-cols-3 gap-8 items-start">
-                <!-- Step 1 -->
                 <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-ccee-verde-agua text-white rounded-full font-bold text-2xl">1</div>
                     <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     <h3 class="font-poppins text-xl font-semibold mb-2 text-ccee-cinza-escuro">Fotografe sua conta de luz</h3>
                     <p class="text-ccee-cinza-medio">Use seu celular para capturar uma imagem clara da sua fatura de energia.</p>
                 </div>
-                <!-- Step 2 -->
                 <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-ccee-verde-agua text-white rounded-full font-bold text-2xl">2</div>
                     <div class="flex justify-center items-center space-x-2 mb-4">
@@ -224,7 +218,6 @@
                     <h3 class="font-poppins text-xl font-semibold mb-2 text-ccee-cinza-escuro">Envie para a melie (via CCEE)</h3>
                     <p class="text-ccee-cinza-medio">Nossa ferramenta integrada ao portal CCEE processa sua conta com segurança.</p>
                 </div>
-                <!-- Step 3 -->
                 <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-ccee-verde-agua text-white rounded-full font-bold text-2xl">3</div>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4 border border-gray-200">
@@ -387,30 +380,29 @@
         </div>
     </section>
 
-    <!-- 4. "Fale com a melie no WhatsApp" Section -->
+    <!-- 4. "Fale com a melie" Section - ATUALIZADA -->
      <section id="whatsapp" class="py-16 md:py-20 section-transition">
         <div class="container mx-auto px-6">
             <div class="lg:flex lg:items-center lg:justify-between">
                 <div class="lg:w-1/2">
                     <h2 class="font-poppins text-3xl md:text-4xl font-bold text-ccee-cinza-escuro mb-6">
-                        Precisa de Ajuda? <br class="hidden md:block"> Converse com a melie no WhatsApp.
+                        Precisa de Ajuda? <br class="hidden md:block"> Converse com a Assistente melie.
                     </h2>
                     <p class="text-ccee-cinza-medio text-lg mb-8">
-                        Nossa assistente virtual está pronta para tirar suas dúvidas, analisar sua conta e te guiar pelo Mercado Livre de Energia de forma rápida e intuitiva.
+                        Nossa assistente virtual está pronta para tirar suas dúvidas, analisar sua conta e te guiar pelo Mercado Livre de Energia de forma rápida e intuitiva, diretamente no seu navegador.
                     </p>
-                    <a href="https://wa.me/SEUNUMEROAQUI?text=Olá%20melie!" target="_blank" class="inline-flex items-center bg-green-500 text-white font-poppins font-semibold py-3 px-6 rounded-lg text-lg hover:bg-green-600 transition duration-300 transform hover:scale-105">
-                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.001 2C5.583 2 2 5.582 2 10.001c0 1.518.413 2.943 1.138 4.193l-1.013 3.688a.695.695 0 00.188.744.697.697 0 00.556.22H6.56c1.205.66 2.587 1.015 4.026 1.015 4.418 0 8.001-3.582 8.001-8.001S14.418 2 10.001 2zm3.817 11.242c-.23.128-.83.41-1.002.458-.173.048-.297.072-.488-.072-.19-.144-.795-.734-1.515-1.453-.576-.575-.97-1.028-1.088-1.207-.118-.18-.012-.276.06-.372.06-.084.133-.204.2-.276.067-.072.102-.12.144-.204.042-.084.024-.156-.012-.216-.036-.06-.297-.708-.405-.972-.108-.252-.228-.216-.312-.216h-.144c-.084 0-.216.024-.324.12-.108.096-.405.396-.405.972s.405 1.128.465 1.212c.06.084.807.972 1.977 1.728.297.192.447.264.633.36.312.168.486.144.648.084.18-.072.552-.288.684-.552.132-.264.132-.492.096-.552-.024-.072-.096-.108-.192-.18z"></path></svg>
-                        Iniciar Conversa no WhatsApp
+                    <a href="https://g.co/gemini/share/1b526f35c25a" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-ccee-verde-agua text-white font-poppins font-semibold py-3 px-6 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 transform hover:scale-105">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                        Acessar Assistente melie
                     </a>
-                    <img src="https://placehold.co/150x150/FFFFFF/3A3A3A?text=QR+WhatsApp" alt="QR Code para WhatsApp" class="mt-6 rounded-lg shadow-md h-32 w-32 md:h-40 md:w-40" onerror="this.src='https://placehold.co/150x150/CCCCCC/FFFFFF?text=QR+Error'; this.onerror=null;">
-
+                    <!-- QR Code removido -->
                 </div>
                 <div class="lg:w-1/2 mt-10 lg:mt-0">
                     <div class="bg-gray-200 p-4 sm:p-6 rounded-xl shadow-2xl max-w-md mx-auto">
                         <div class="flex items-center mb-4 pb-2 border-b border-gray-300">
                             <img src="images/avatar-whatsapp.png" alt="Avatar melie WhatsApp" class="w-10 h-10 rounded-full mr-3 shadow" onerror="this.src='https://placehold.co/40x40/CCCCCC/FFFFFF?text=melie+Error'; this.onerror=null;">
                             <div>
-                                <p class="font-semibold text-ccee-cinza-escuro">melie Assistente</p>
+                                <p class="font-semibold text-ccee-cinza-escuro">melie</p>
                                 <p class="text-xs text-green-600">online</p>
                             </div>
                         </div>
@@ -437,7 +429,7 @@
                             </div>
                             <div class="flex">
                                 <div class="whatsapp-bubble-meli p-3 rounded-lg max-w-xs shadow">
-                                    É simples! Você pode enviar uma foto da sua conta por aqui ou acessar a ferramenta no site da CCEE <span class="text-blue-600 hover:underline cursor-pointer">[link para ferramenta]</span>.
+                                    É simples! Você pode enviar uma foto da sua conta por aqui ou acessar nossa ferramenta de análise no site da CCEE <a href="https://g.co/gemini/share/1b526f35c25a" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">[acessando aqui]</a>.
                                 </div>
                             </div>
                         </div>
@@ -452,6 +444,7 @@
             </div>
         </div>
     </section>
+    <!-- Fim da Seção "Fale com a melie" Atualizada -->
 
     <!-- 5. "Entenda sua Conta de Luz (Visual Law)" Section -->
     <section id="visual-law" class="py-16 md:py-20 bg-ccee-cinza-claro section-transition">
@@ -655,14 +648,6 @@
             }
         }
 
-        // ATENÇÃO: A variável apiKey está vazia (""). 
-        // Em ambientes como o Canvas, espera-se que a plataforma injete a chave da API.
-        // O erro 403 que você está vendo ("Method doesn't allow unregistered callers...")
-        // sugere que a chave não está sendo fornecida pelo ambiente de execução atual (ex: GitHub Pages preview).
-        // O código abaixo está correto conforme as instruções de deixar apiKey = "".
-        // A solução para o erro 403 geralmente envolve configurar corretamente a API Key no ambiente
-        // de deploy ou usar um backend proxy se a chave não puder ser exposta no frontend.
-        // Para os propósitos deste Canvas, manteremos apiKey = "" como instruído.
         const apiKey = ""; 
 
         async function callGeminiAPI(prompt) {
@@ -681,7 +666,6 @@
 
                 if (!response.ok) {
                     const errorBody = await response.text();
-                    // Exibindo um erro mais detalhado no console para depuração
                     console.error('Gemini API Error Details:', errorBody);
                     throw new Error(`HTTP error! status: ${response.status}, body: ${errorBody}`);
                 }
@@ -701,8 +685,7 @@
             } catch (error) {
                 console.error('Error calling Gemini API:', error);
                 modalLoader.style.display = 'none';
-                // A mensagem de erro já inclui detalhes do corpo da resposta se o status não for OK.
-                modalResponse.textContent = `Converse com a nossa assistente, melie, e receba uma análise detalhada para entender seu consumo e maximizar sua economia.`;
+                modalResponse.textContent = `Erro ao buscar informações da IA. Verifique o console para mais detalhes.`;
             }
         }
 
