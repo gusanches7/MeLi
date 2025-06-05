@@ -132,7 +132,7 @@
             text-decoration: none;
             cursor: pointer;
         }
-        .loader {
+        .loader { /* Mantido caso queira reativar a API depois, mas não será usado agora */
             border: 5px solid #f3f3f3;
             border-top: 5px solid #3EC6A6;
             border-radius: 50%;
@@ -221,19 +221,7 @@
                 <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-ccee-verde-agua text-white rounded-full font-bold text-2xl">3</div>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4 border border-gray-200">
-                        <div class="animate-pulse flex space-x-4 mb-3" id="loading-analysis" style="display: flex;"> <div class="rounded-full bg-gray-300 h-8 w-8"></div>
-                            <div class="flex-1 space-y-3 py-1">
-                                <div class="h-2 bg-gray-300 rounded"></div>
-                                <div class="space-y-2">
-                                    <div class="grid grid-cols-3 gap-2">
-                                        <div class="h-2 bg-gray-300 rounded col-span-1"></div>
-                                        <div class="h-2 bg-gray-300 rounded col-span-2"></div>
-                                    </div>
-                                    <div class="h-2 bg-gray-300 rounded"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="analysis-result" style="display: none;">
+                        <div id="analysis-result"> <!-- Loading removido, pois o conteúdo é estático agora -->
                             <p class="text-sm text-ccee-cinza-medio">Concessionária: <span class="font-semibold text-ccee-azul-petroleo">Exemplo Energia S.A.</span></p>
                             <img src="https://placehold.co/100x30/004A77/FFFFFF?text=Logo+Conces." alt="Logo Concessionária" class="h-6 my-1 opacity-80" onerror="this.src='https://placehold.co/100x30/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
                             <p class="text-sm text-ccee-cinza-medio mt-1">Consumo Médio: <span id="simulated-consumption" class="font-semibold text-ccee-cinza-escuro">350 kWh/mês</span></p>
@@ -386,14 +374,14 @@
             <div class="lg:flex lg:items-center lg:justify-between">
                 <div class="lg:w-1/2">
                     <h2 class="font-poppins text-3xl md:text-4xl font-bold text-ccee-cinza-escuro mb-6">
-                        Precisa de Ajuda? <br class="hidden md:block"> Converse com a Assistente melie.
+                        Precisa de Ajuda? <br class="hidden md:block"> Converse com a melie.
                     </h2>
                     <p class="text-ccee-cinza-medio text-lg mb-8">
                         Nossa assistente virtual está pronta para tirar suas dúvidas, analisar sua conta e te guiar pelo Mercado Livre de Energia de forma rápida e intuitiva, diretamente no seu navegador.
                     </p>
                     <a href="https://g.co/gemini/share/1b526f35c25a" target="_blank" rel="noopener noreferrer" class="inline-flex items-center bg-ccee-verde-agua text-white font-poppins font-semibold py-3 px-6 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 transform hover:scale-105">
                         <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                        Acessar Assistente melie
+                        Acessar Assistente melie IA
                     </a>
                     <!-- QR Code removido -->
                 </div>
@@ -402,7 +390,7 @@
                         <div class="flex items-center mb-4 pb-2 border-b border-gray-300">
                             <img src="images/avatar-whatsapp.png" alt="Avatar melie WhatsApp" class="w-10 h-10 rounded-full mr-3 shadow" onerror="this.src='https://placehold.co/40x40/CCCCCC/FFFFFF?text=melie+Error'; this.onerror=null;">
                             <div>
-                                <p class="font-semibold text-ccee-cinza-escuro">melie</p>
+                                <p class="font-semibold text-ccee-cinza-escuro">melie Assistente</p>
                                 <p class="text-xs text-green-600">online</p>
                             </div>
                         </div>
@@ -593,22 +581,21 @@
         <div class="modal-content">
             <span class="close-button" id="closeModalButton">&times;</span>
             <h3 id="modalTitle" class="font-poppins text-2xl font-semibold text-ccee-azul-petroleo mb-4">Insights da melie ✨</h3>
-            <div id="modalLoader" class="loader" style="display: none;"></div>
+            <div id="modalLoader" class="loader" style="display: none;"></div> <!-- Loader escondido por padrão -->
             <div id="modalResponse" class="text-ccee-cinza-escuro leading-relaxed">
             </div>
         </div>
     </div>
 
     <script>
-        // Simulate loading for analysis preview
-        setTimeout(() => {
-            const loadingDiv = document.getElementById('loading-analysis');
-            const resultDiv = document.getElementById('analysis-result');
-            if (loadingDiv && resultDiv) {
-                loadingDiv.style.display = 'none';
-                resultDiv.style.display = 'block';
-            }
-        }, 1500);
+        // Removido o setTimeout para loading-analysis, pois o conteúdo da análise agora é estático.
+        // Se quiser manter um delay visual para a exibição da análise, pode adicionar um setTimeout aqui.
+        // Exemplo:
+        // setTimeout(() => {
+        //     const resultDiv = document.getElementById('analysis-result');
+        //     if (resultDiv) resultDiv.style.display = 'block';
+        // }, 500); // Meio segundo de delay
+
 
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
@@ -629,17 +616,16 @@
         const closeModalButton = document.getElementById('closeModalButton');
         const modalTitle = document.getElementById('modalTitle');
         const modalResponse = document.getElementById('modalResponse');
-        const modalLoader = document.getElementById('modalLoader');
+        const modalLoader = document.getElementById('modalLoader'); // Loader ainda existe, mas não será mostrado
 
         function openModal() {
-            modalResponse.innerHTML = '';
-            modalLoader.style.display = 'block';
+            modalResponse.innerHTML = ''; // Limpa resposta anterior
+            modalLoader.style.display = 'none'; // Garante que o loader não apareça
             geminiModal.style.display = 'block';
         }
 
         function closeModal() {
             geminiModal.style.display = 'none';
-            modalLoader.style.display = 'none';
         }
         closeModalButton.onclick = closeModal;
         window.onclick = function(event) {
@@ -648,87 +634,65 @@
             }
         }
 
-        const apiKey = ""; 
+        // Textos estáticos para os botões
+        const billExplanationText = `
+            <p class="mb-4">Olá! Que legal que você já fez a simulação com a gente na melie! 😊 É o primeiro passo pra entender como economizar na sua conta de luz.</p>
+            <p class="mb-4">Vamos lá, vou te explicar o que esses números significam de forma bem direta:</p>
+            <ul class="list-disc list-inside mb-4 space-y-2">
+                <li><strong>Seu consumo de 350 kWh/mês:</strong> Esse número é o "tamanho" do seu consumo de energia, ou seja, a quantidade de eletricidade que seus aparelhos usaram em um mês. Pense nisso como a "gasolina" que sua casa consumiu. 350 kWh é um consumo típico para muitas residências, mostrando a energia necessária para as suas necessidades diárias.</li>
+                <li><strong>Sua economia potencial de R$ 75,00 por mês:</strong> Essa é a parte mais animadora! 🎉 Isso significa que, se você migrar para o Mercado Livre de Energia através da melie, você pode ter uma conta de luz aproximadamente R$ 75,00 <strong>mais barata</strong> a cada mês do que você paga hoje no mercado tradicional. É um dinheiro que fica no seu bolso todo mês, somando R$ 900,00 em economia ao longo de um ano!</li>
+            </ul>
+            <p class="mb-2 font-semibold">Pra te ajudar a "desvendar" sua conta atual e ver onde a economia "entra", aqui vão umas dicas rápidas:</p>
+            <ol class="list-decimal list-inside mb-4 space-y-1">
+                <li><strong>Procure pelo seu consumo em kWh:</strong> Geralmente vem destacado no meio da fatura, é a quantidade exata que você usou no mês (esse número deve ser próximo dos 350 kWh da sua simulação).</li>
+                <li><strong>Veja o preço do kWh:</strong> Sua conta tem um valor total e, em algum lugar, mostra quanto custou cada kWh consumido (esse valor inclui a tarifa da distribuidora pelo uso da rede e o custo da energia em si).</li>
+                <li><strong>Observe os impostos e taxas:</strong> Uma boa parte do valor da sua conta são tributos (como ICMS, PIS/COFINS) e encargos setoriais obrigatórios.</li>
+                <li><strong>As Bandeiras Tarifárias:</strong> Aquelas cores (verde, amarela, vermelha) são acréscimos no preço do kWh dependendo de como está a geração de energia no país.</li>
+            </ol>
+            <p class="mb-2 font-semibold">E como a melie ajuda nisso tudo?</p>
+            <p class="mb-4">A melie entra justamente para simplificar a sua migração para o Mercado Livre de Energia. No mercado livre, você tem a chance de "comprar" a energia elétrica diretamente de geradores ou comercializadores, geralmente a um preço mais competitivo do que a tarifa que você paga hoje para a distribuidora local (aquela que chega na sua casa). Essa diferença de preço na energia é o que gera a economia de R$ 75,00 que a sua simulação mostrou! A gente cuida de toda a burocracia e te mostra as melhores opções para o seu perfil de consumo, como esses 350 kWh por mês, para você economizar sem dor de cabeça.</p>
+            <p>Espero que essa explicação tenha te ajudado a entender melhor! A economia é real e o Mercado Livre é uma ótima oportunidade. Se tiver mais perguntas ou quiser dar o próximo passo, estamos aqui pra te ajudar!</p>
+        `;
 
-        async function callGeminiAPI(prompt) {
-            openModal();
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-            
-            let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-            const payload = { contents: chatHistory };
+        const offerComparisonText = `
+            <p class="mb-4">Para escolher a melhor oferta, você precisará ponderar seus três critérios: economia, energia limpa e termos do contrato. Não há uma única oferta que seja a melhor em todos os aspectos simultaneamente.</p>
+            <p class="mb-3 font-semibold">Analisando as opções:</p>
+            <ul class="list-disc list-inside mb-4 space-y-2">
+                <li><strong>Livre Energia Plus:</strong> Oferece a melhor economia (menor tarifa e maior economia estimada). Contudo, <strong>não</strong> utiliza energia renovável e tem o contrato mais longo (24 meses). É ideal se a economia máxima for sua prioridade absoluta, mesmo abrindo mão da sustentabilidade e com um compromisso de prazo maior.</li>
+                <li><strong>Energia Solar Varejo:</strong> Oferece energia limpa (solar certificada), um bom equilíbrio de economia (tarifa intermediária, economia razoável) e um contrato de prazo justo (12 meses). É uma forte candidata se você valoriza a energia renovável e quer um bom equilíbrio entre preço e termos contratuais, sem o compromisso de 24 meses.</li>
+                <li><strong>EcoPower Brasil:</strong> Oferece energia limpa e a maior flexibilidade contratual ("Sem fidelidade"). No entanto, é a mais cara (maior tarifa e menor economia estimada). É a escolha certa se energia limpa e <strong>total</strong> flexibilidade contratual forem mais importantes para você do que a economia imediata.</li>
+            </ul>
+            <p class="mb-3 font-semibold">Recomendação:</p>
+            <ul class="list-disc list-inside mb-4 space-y-2">
+                <li>Se sua prioridade principal é ter <strong>energia limpa</strong> <em>e</em> um <strong>contrato equilibrado</strong> (nem muito longo, nem com o maior custo), a <strong>Energia Solar Varejo</strong> parece ser a opção que melhor alinha esses pontos.</li>
+                <li>Se a <strong>economia máxima</strong> for o fator decisivo, mesmo sem energia limpa, a <strong>Livre Energia Plus</strong> é a que se destaca nesse quesito.</li>
+                <li>Se a <strong>flexibilidade contratual</strong> (sem fidelidade) <em>junto</em> com a energia limpa for crucial, e você aceitar pagar mais por isso, a <strong>EcoPower Brasil</strong> é a escolha.</li>
+            </ul>
+            <p>Considere também que a "Economia Estimada" é apenas uma projeção; o fator mais direto na sua conta é a tarifa (R$/kWh) multiplicada pelo seu consumo real.</p>
+        `;
 
-            try {
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
 
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    console.error('Gemini API Error Details:', errorBody);
-                    throw new Error(`HTTP error! status: ${response.status}, body: ${errorBody}`);
-                }
-
-                const result = await response.json();
-                modalLoader.style.display = 'none';
-
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const rawText = result.candidates[0].content.parts[0].text;
-                    modalResponse.innerHTML = rawText.replace(/\n/g, '<br>');
-                } else {
-                    console.error('Unexpected response structure:', result);
-                    modalResponse.textContent = 'Desculpe, não consegui processar a informação. Tente novamente.';
-                }
-            } catch (error) {
-                console.error('Error calling Gemini API:', error);
-                modalLoader.style.display = 'none';
-                modalResponse.textContent = `Erro ao buscar informações da IA. Verifique o console para mais detalhes.`;
-            }
-        }
-
+        // Botão "Entender Melhor Minha Conta"
         const explainBillButton = document.getElementById('explainBillButton');
         if (explainBillButton) {
             explainBillButton.onclick = function() {
-                const consumption = document.getElementById('simulated-consumption')?.textContent || 'um valor típico';
-                const savings = document.getElementById('simulated-savings')?.textContent || 'um valor interessante';
-                
-                const prompt = `Sou um usuário da melie, uma plataforma que ajuda a migrar para o mercado livre de energia no Brasil.
-Minha análise simulada mostrou um consumo de ${consumption} e uma economia potencial de ${savings} por mês.
-Por favor, me explique de forma simples e amigável o que esses números significam na minha conta de luz.
-Dê dicas curtas sobre como posso entender melhor os componentes da minha fatura de energia e como a melie pode me ajudar a economizar.
-Use uma linguagem clara, como se estivesse conversando comigo. Formate a resposta com parágrafos.`;
-                
+                openModal();
                 modalTitle.textContent = "✨ Entendendo sua Conta com a melie";
-                callGeminiAPI(prompt);
+                modalResponse.innerHTML = billExplanationText;
             }
         }
 
+        // Botão "Qual oferta é ideal para mim?"
         const compareOffersButton = document.getElementById('compareOffersButton');
         if (compareOffersButton) {
             compareOffersButton.onclick = function() {
-                const offerCards = document.querySelectorAll('#offerCardsContainer .offer-card');
-                let offersDetails = "Aqui estão algumas ofertas de energia disponíveis:\n";
-                offerCards.forEach(card => {
-                    const name = card.dataset.name;
-                    const tarifa = card.dataset.tarifa;
-                    const renewable = card.dataset.renewable === 'true' ? "Sim" : "Não";
-                    const savings = card.dataset.savings;
-                    const details = card.dataset.details.split(';').join(', ');
-                    offersDetails += `- ${name}: Tarifa ${tarifa}, Energia Renovável: ${renewable}, Economia Estimada: ${savings}, Detalhes: ${details}\n`;
-                });
-
-                const prompt = `Sou um usuário da melie e estou comparando estas ofertas de energia no mercado livre brasileiro:
-${offersDetails}
-Considerando que busco uma boa economia, mas também valorizo energia limpa e um contrato com termos justos, qual dessas ofertas você me recomendaria ou quais pontos devo considerar para escolher a melhor para mim?
-Por favor, forneça uma análise curta e direta, em português do Brasil. Formate a resposta com parágrafos.`;
-
+                openModal();
                 modalTitle.textContent = "✨ Comparando Ofertas com a melie";
-                callGeminiAPI(prompt);
+                modalResponse.innerHTML = offerComparisonText;
             }
         }
+
+        // Função callGeminiAPI removida, pois não é mais necessária.
     </script>
 </body>
 </html>
