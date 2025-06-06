@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>melie - Resumo do Contrato (Visual Law)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            color: #3A3A3A; /* Cor de texto padrão: Cinza Escuro */
+        }
+        .font-poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Paleta de Cores CCEE + melie */
+        .bg-ccee-verde-agua { background-color: #3EC6A6; }
+        .text-ccee-verde-agua { color: #3EC6A6; }
+        .border-ccee-verde-agua { border-color: #3EC6A6; }
+        .hover\:bg-ccee-verde-agua-dark:hover { background-color: #35B094; }
+
+        .bg-ccee-azul-petroleo { background-color: #004A77; }
+        .text-ccee-azul-petroleo { color: #004A77; }
+        .border-ccee-azul-petroleo { border-color: #004A77; }
+        .hover\:bg-ccee-azul-petroleo-dark:hover { background-color: #003B60; }
+
+        .bg-ccee-amarelo-luz { background-color: #FFD84C; }
+        .text-ccee-amarelo-luz { color: #FFD84C; }
+
+        .bg-ccee-cinza-claro { background-color: #F4F7F8; }
+        .text-ccee-cinza-escuro { color: #3A3A3A; }
+        .text-ccee-cinza-medio { color: #777777; }
+        
+        .section-transition {
+            transition: all 0.5s ease-in-out;
+        }
+
+        .summary-card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 1px solid #E5E7EB; 
+            overflow: hidden; 
+            border-top: 5px solid #3EC6A6; /* Destaque superior VERDE ÁGUA */
+            display: flex;
+            flex-direction: column;
+            height: 100%; 
+        }
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .summary-card-header {
+            display: flex;
+            align-items: flex-start; 
+            margin-bottom: 1rem; /* mb-4 */
+        }
+        .summary-card-number-display { 
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem; /* text-5xl */
+            font-weight: 700; 
+            color: #3EC6A6; 
+            line-height: 1;
+            margin-right: 0.75rem; /* mr-3 */
+        }
+        .summary-card-title-group {
+            flex-grow: 1;
+            padding-top: 0.25rem; 
+        }
+        .summary-card-question {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 600; 
+            color: #004A77; 
+            display: flex;
+            align-items: center;
+        }
+        .summary-card-emoji { 
+            font-size: 1.75rem; /* text-3xl */
+            margin-right: 0.625rem; /* mr-2.5 */
+            line-height: 1; 
+        }
+        .summary-card-answer {
+            color: #3A3A3A; 
+            line-height: 1.625; 
+            font-size: 0.9rem; 
+            flex-grow: 1; 
+        }
+        .summary-card-answer strong {
+            color: #004A77; 
+        }
+        .summary-card-answer ul {
+            list-style-position: outside;
+            padding-left: 1.25rem;
+            margin-top: 0.5rem; 
+        }
+        .summary-card-answer li {
+            margin-bottom: 0.25rem; 
+            padding-left: 0.8rem;
+            position: relative;
+        }
+        .summary-card-answer li::before { 
+            content: "●"; 
+            color: #3EC6A6; 
+            font-size: 0.8em;
+            position: absolute;
+            left: -0.1em;
+            top: 0.42em;
+        }
+
+    </style>
+</head>
+<body class="bg-ccee-cinza-claro">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <!-- Link para voltar à página principal (index.html) -->
+            <a href="index.html" class="font-poppins font-bold text-2xl text-ccee-azul-petroleo">melie</a>
+            <div class="space-x-4">
+                <!-- Link para a seção de comparação de ofertas na página principal -->
+                <a href="index.html#compare" class="text-ccee-cinza-medio hover:text-ccee-verde-agua">Ver Outras Ofertas</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="contract-summary" class="py-12 md:py-16 section-transition">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-10 md:mb-12">
+                <img src="https://placehold.co/150x50/3EC6A6/FFFFFF?text=EcoSolar+melie" alt="Logo Plano Economia Solar melie" class="h-12 mx-auto mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
+                <h1 class="font-poppins text-3xl md:text-4xl font-bold text-ccee-cinza-escuro">
+                    Resumo do seu futuro contrato <span class="text-ccee-verde-agua">melie</span>
+                </h1>
+                <p class="text-ccee-cinza-medio mt-3 text-lg max-w-2xl mx-auto">
+                    Entenda as condições do <strong>Plano Economia Solar melie</strong>. Simples e transparente! ✨
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+                <!-- Card 01: O que é? -->
+                <div class="summary-card p-6">
+                    <div class="summary-card-header">
+                        <span class="summary-card-number-display">01</span>
+                        <div class="summary-card-title-group">
+                            <h3 class="summary-card-question"><span class="summary-card-emoji">📄</span> O que é este contrato?</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card-answer">
+                        <p class="mb-2">É a sua porta de entrada para o <strong>Mercado Livre de Energia</strong> com a melie!</p>
+                        <ul>
+                            <li>🛒 Compra de energia da <strong>EcoSolar Energias Ltda.</strong></li>
+                            <li>💡 Potencial de <strong>economia</strong> e mais <strong>autonomia</strong>.</li>
+                            <li>🤝 melie te representa e simplifica tudo.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 02: Valores -->
+                <div class="summary-card p-6">
+                       <div class="summary-card-header">
+                        <span class="summary-card-number-display">02</span>
+                        <div class="summary-card-title-group">
+                           <h3 class="summary-card-question"><span class="summary-card-emoji">💰</span> Valores e Pagamento</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card-answer">
+                        <p class="mb-2"><strong>Como pago?</strong></p>
+                        <ul>
+                            <li>Fatura 1: Da sua distribuidora local (pelo uso da rede - TUSD).</li>
+                            <li>Fatura 2: Da EcoSolar Energias (pela energia consumida - TE).</li>
+                        </ul>
+                        <p class="mt-3 mb-2"><strong>Quanto?</strong></p>
+                        <ul>
+                            <li>Energia (TE): <strong>R$ 0,55 por kWh</strong> (fixo).</li>
+                            <li>TUSD: Definida pela distribuidora (ANEEL).</li>
+                        </ul>
+                        <p class="mt-3"><strong>Quando?</strong> Pagamento mensal, todo <strong>dia 15</strong> (boleto/débito). </p>
+                    </div>
+                </div>
+
+                <!-- Card 03: Vigência e Fidelidade -->
+                <div class="summary-card p-6">
+                    <div class="summary-card-header">
+                        <span class="summary-card-number-display">03</span>
+                        <div class="summary-card-title-group">
+                            <h3 class="summary-card-question"><span class="summary-card-emoji">⏳</span> Vigência e Fidelidade</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card-answer">
+                        <p class="mb-2"><strong>Por quanto tempo vale?</strong></p>
+                        <ul>
+                            <li>Seu contrato tem validade de <strong>12 meses</strong>.</li>
+                            <li>Início: Data de ativação do fornecimento.</li>
+                        </ul>
+                           <p class="mt-3"><strong>Tem fidelidade?</strong></p>
+                        <ul>
+                            <li>✅ Sim, período de <strong>12 meses</strong>.</li>
+                            <li>Garante as condições negociadas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 04: Cancelamento -->
+                <div class="summary-card p-6">
+                       <div class="summary-card-header">
+                        <span class="summary-card-number-display">04</span>
+                          <div class="summary-card-title-group">
+                            <h3 class="summary-card-question"><span class="summary-card-emoji">🚫</span> E se eu quiser cancelar?</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card-answer">
+                        <p class="mb-2">Pode cancelar a qualquer momento!</p>
+                        <ul>
+                            <li>🗓️ Avise com <strong>30 dias</strong> de antecedência.</li>
+                            <li>⚠️ Multa por cancelamento na fidelidade? Sim, calculada sobre o tempo restante e consumo. (Veja detalhes no contrato completo).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 05: LGPD e Dados de Acesso -->
+                <div class="summary-card p-6">
+                    <div class="summary-card-header">
+                        <span class="summary-card-number-display">05</span>
+                        <div class="summary-card-title-group">
+                            <h3 class="summary-card-question"><span class="summary-card-emoji">🛡️</span> Seus Dados Protegidos (LGPD)</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card-answer">
+                        <p class="mb-2">Respeitamos a <strong>Lei Geral de Proteção de Dados</strong>.</p>
+                        <ul>
+                            <li>🔒 Seus dados (conta de luz, etc.) são usados <strong>apenas</strong> para:
+                                <ul>
+                                    <li>Gestão do seu contrato.</li>
+                                    <li>Representação na CCEE.</li>
+                                    <li>Comunicação sobre os serviços.</li>
+                                </ul>
+                            </li>
+                            <li>❌ Não vendemos nem compartilhamos para outros fins.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 06: Mais Informações -->
+                <div class="summary-card p-6">
+                    <div class="summary-card-header">
+                        <span class="summary-card-number-display">06</span>
+                        <div class="summary-card-title-group">
+                           <h3 class="summary-card-question"><span class="summary-card-emoji">💡</span> Outras Infos Importantes</h3>
+                        </div>
+                    </div>
+                    <div class="summary-card-answer">
+                        <ul>
+                            <li><strong>Reajustes:</strong>
+                                <ul>
+                                    <li>TE (Energia): Fixa por 12 meses.</li>
+                                    <li>TUSD (Rede): Reajustada anualmente pela ANEEL.</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2">🌿 <strong>Fonte da Energia:</strong> 100% Renovável (Solar Certificada).</li>
+                            <li class="mt-2">🔍 <strong>Contrato Completo:</strong> Este é um resumo! Consulte a íntegra do CCEV (Contrato de Compra de Energia Varejista) para todos os detalhes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-12 md:mt-16">
+                <p class="text-ccee-cinza-medio text-lg mb-6">
+                    Pronto para economizar com energia limpa e transparente?
+                </p>
+                <a href="#" class="font-poppins bg-ccee-verde-agua text-white font-semibold py-3 px-8 md:py-4 md:px-10 rounded-lg text-lg hover:bg-ccee-verde-agua-dark transition duration-300 ease-in-out transform hover:scale-105 shadow-lg">
+                    Sim, Quero Contratar! 👍
+                </a>
+                   <p class="mt-6">
+                    <a href="index.html#compare" class="text-ccee-azul-petroleo hover:text-ccee-verde-agua hover:underline">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline mr-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Prefiro ver outras ofertas
+                    </a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-ccee-azul-petroleo text-white py-12 mt-10">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-gray-300 mb-2">Dúvidas? Fale com a gente: <a href="mailto:contato@melie.com.br" class="hover:text-ccee-verde-agua underline">contato@melie.com.br</a></p>
+            <p class="text-sm text-gray-400 mb-2">melie - Simplificando sua energia.</p>
+            <p class="text-sm text-gray-400">&copy; <span id="currentYear"></span> melie Energia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Substituído "URL_DA_PAGINA_PRINCIPAL.html" por "index.html" para garantir que os links funcionem corretamente.
+    </script>
+</body>
+</html>
