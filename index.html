@@ -148,7 +148,7 @@
 
         /* Estilos para a nova Seção Hero */
         .hero-bg-image {
-            background-image: url('images/headsite2.png'); /* Nome do arquivo conforme o usuário informou */
+            background-image: url('images/headsite2.png');
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -221,7 +221,7 @@
                 <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
                     <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-ccee-verde-agua text-white rounded-full font-bold text-2xl">3</div>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4 border border-gray-200">
-                        <div id="analysis-result"> <!-- Loading removido, pois o conteúdo é estático agora -->
+                        <div id="analysis-result">
                             <p class="text-sm text-ccee-cinza-medio">Concessionária: <span class="font-semibold text-ccee-azul-petroleo">Exemplo Energia S.A.</span></p>
                             <img src="https://placehold.co/100x30/004A77/FFFFFF?text=Logo+Conces." alt="Logo Concessionária" class="h-6 my-1 opacity-80" onerror="this.src='https://placehold.co/100x30/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
                             <p class="text-sm text-ccee-cinza-medio mt-1">Consumo Médio: <span id="simulated-consumption" class="font-semibold text-ccee-cinza-escuro">350 kWh/mês</span></p>
@@ -247,13 +247,7 @@
                 Encontre as Melhores Ofertas para Você
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="offerCardsContainer">
-                <!-- Offer Card 1 -->
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card"
-                     data-name="Energia Solar Varejo"
-                     data-tarifa="R$ 0,55/kWh"
-                     data-renewable="true"
-                     data-savings="R$60"
-                     data-details="Contrato de 12 meses;Energia Limpa Certificada;Suporte 24/7">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card" data-name="Energia Solar Varejo" data-tarifa="R$ 0,55/kWh" data-renewable="true" data-savings="R$60" data-details="Contrato de 12 meses;Energia Limpa Certificada;Suporte 24/7">
                     <div class="p-6 flex-grow">
                         <img src="https://placehold.co/150x50/3EC6A6/FFFFFF?text=Energia+Solar+Varejo" alt="Logo Energia Solar Varejo" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
                         <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Energia Solar Varejo</h3>
@@ -286,13 +280,7 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card"
-                     data-name="Livre Energia Plus"
-                     data-tarifa="R$ 0,52/kWh"
-                     data-renewable="false"
-                     data-savings="R$70"
-                     data-details="Contrato de 24 meses;Flexibilidade contratual;Atendimento dedicado">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card" data-name="Livre Energia Plus" data-tarifa="R$ 0,52/kWh" data-renewable="false" data-savings="R$70" data-details="Contrato de 24 meses;Flexibilidade contratual;Atendimento dedicado">
                     <div class="p-6 flex-grow">
                         <img src="https://placehold.co/150x50/004A77/FFFFFF?text=Livre+Energia+Plus" alt="Logo Livre Energia Plus" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
                         <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Livre Energia Plus</h3>
@@ -320,13 +308,7 @@
                         </button>
                     </div>
                 </div>
-
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card"
-                     data-name="EcoPower Brasil"
-                     data-tarifa="R$ 0,58/kWh"
-                     data-renewable="true"
-                     data-savings="R$50"
-                     data-details="Sem fidelidade;100% Digital;Foco em sustentabilidade">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col offer-card" data-name="EcoPower Brasil" data-tarifa="R$ 0,58/kWh" data-renewable="true" data-savings="R$50" data-details="Sem fidelidade;100% Digital;Foco em sustentabilidade">
                     <div class="p-6 flex-grow">
                         <img src="https://placehold.co/150x50/3EC6A6/000000?text=EcoPower+Brasil" alt="Logo EcoPower Brasil" class="h-10 mb-4" onerror="this.src='https://placehold.co/150x50/CCCCCC/FFFFFF?text=Logo+Error'; this.onerror=null;">
                         <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">EcoPower Brasil</h3>
@@ -368,13 +350,13 @@
         </div>
     </section>
 
-    <!-- 4. "Fale com a melie" Section - ATUALIZADA -->
+    <!-- 4. "Fale com a melie" Section -->
      <section id="whatsapp" class="py-16 md:py-20 section-transition">
         <div class="container mx-auto px-6">
             <div class="lg:flex lg:items-center lg:justify-between">
                 <div class="lg:w-1/2">
                     <h2 class="font-poppins text-3xl md:text-4xl font-bold text-ccee-cinza-escuro mb-6">
-                        Precisa de Ajuda? <br class="hidden md:block"> Converse com a melie.
+                        Precisa de Ajuda? <br class="hidden md:block"> Converse com a Assistente melie IA.
                     </h2>
                     <p class="text-ccee-cinza-medio text-lg mb-8">
                         Nossa assistente virtual está pronta para tirar suas dúvidas, analisar sua conta e te guiar pelo Mercado Livre de Energia de forma rápida e intuitiva, diretamente no seu navegador.
@@ -383,15 +365,18 @@
                         <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
                         Acessar Assistente melie IA
                     </a>
-                    <!-- QR Code removido -->
                 </div>
                 <div class="lg:w-1/2 mt-10 lg:mt-0">
                     <div class="bg-gray-200 p-4 sm:p-6 rounded-xl shadow-2xl max-w-md mx-auto">
                         <div class="flex items-center mb-4 pb-2 border-b border-gray-300">
                             <img src="images/avatar-whatsapp.png" alt="Avatar melie WhatsApp" class="w-10 h-10 rounded-full mr-3 shadow" onerror="this.src='https://placehold.co/40x40/CCCCCC/FFFFFF?text=melie+Error'; this.onerror=null;">
                             <div>
-                                <p class="font-semibold text-ccee-cinza-escuro">melie Assistente</p>
-                                <p class="text-xs text-green-600">online</p>
+                                <div class="flex items-center">
+                                    <p class="font-semibold text-ccee-cinza-escuro mr-1">melie</p>
+                                    <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
                             </div>
                         </div>
                         <div class="space-y-3 h-64 overflow-y-auto p-2 rounded-md bg-white bg-opacity-50">
@@ -432,78 +417,18 @@
             </div>
         </div>
     </section>
-    <!-- Fim da Seção "Fale com a melie" Atualizada -->
 
-    <!-- 5. "Entenda sua Conta de Luz (Visual Law)" Section -->
+    <!-- 5. "Entenda sua Conta de Luz (Visual Law)" Section - ATUALIZADA COM BOTÃO -->
     <section id="visual-law" class="py-16 md:py-20 bg-ccee-cinza-claro section-transition">
         <div class="container mx-auto px-6">
             <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
-                Sua Conta de Luz Descomplicada
-            </h2>
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div class="p-6 bg-white rounded-xl shadow-lg">
-                    <h3 class="font-poppins text-2xl font-semibold text-center text-ccee-cinza-medio mb-4">ANTES: Complexidade</h3>
-                    <div class="bg-gray-100 p-4 rounded-lg border border-gray-300 filter blur-xs opacity-80">
-                        <p class="text-xs text-gray-500 leading-tight">
-                            FATURA DE ENERGIA ELÉTRICA - REF 05/2024<br>
-                            CLIENTE: JOÃO DA SILVA CPF: 123.456.789-00<br>
-                            END: RUA EXEMPLO, 123 - CIDADE EXEMPLO<br>
-                            CONTA CONTRATO: 987654321 INSTALAÇÃO: 123456789<br>
-                            ... (muitos códigos e números) ...<br>
-                            DESC. ITEM | UN | QTD | VL.UNIT | VL.TOTAL<br>
-                            ENERGIA ATIVA TE | kWh | 350 | 0.4123 | 144.30<br>
-                            ENERGIA ATIVA TUSD | kWh | 350 | 0.3876 | 135.66<br>
-                            ADIC BANDEIRA TARIF ESCASSEZ HIDRICA | - | - | - | 25.50<br>
-                            CIP MUNICIPAL | - | - | - | 15.80<br>
-                            ICMS ALIQ 25% BASE CALC 305.46 | % | - | - | 76.36<br>
-                            PIS/COFINS | - | - | - | 12.30<br>
-                            ... (mais termos técnicos) ...<br>
-                            TOTAL A PAGAR: <span class="font-bold">R$ 409,92</span>
-                        </p>
-                    </div>
-                </div>
-                <div class="p-6 bg-white rounded-xl shadow-xl border-2 border-ccee-verde-agua">
-                    <h3 class="font-poppins text-2xl font-semibold text-center text-ccee-azul-petroleo mb-4">DEPOIS: Clareza com melie</h3>
-                    <div class="bg-white p-4 rounded-lg">
-                        <div class="flex items-center mb-3">
-                            <svg class="w-8 h-8 text-ccee-verde-agua mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                            <h4 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro">Resumo da Sua Conta</h4>
-                        </div>
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
-                                <span class="text-ccee-cinza-medio">Consumo Total do Mês:</span>
-                                <span class="font-bold text-lg text-ccee-azul-petroleo">350 kWh</span>
-                            </div>
-                            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                                <span class="text-ccee-cinza-medio">Valor Total da Fatura:</span>
-                                <span class="font-bold text-lg text-ccee-azul-petroleo">R$ 409,92</span>
-                            </div>
-                            <div class="p-3 bg-gray-100 rounded-lg">
-                                <p class="text-sm text-ccee-cinza-medio mb-1">Composição Principal:</p>
-                                <p class="text-sm text-ccee-cinza-escuro">Energia (TE + TUSD): <span class="font-semibold">R$ 279,96</span></p>
-                                <p class="text-sm text-ccee-cinza-escuro">Impostos e Taxas: <span class="font-semibold">R$ 129,96</span></p>
-                            </div>
-                            <div class="mt-3 p-3 bg-ccee-amarelo-luz rounded-lg text-center">
-                                <p class="text-ccee-cinza-escuro font-semibold">Com melie, você poderia economizar até <span class="text-xl">R$ 75,00</span> neste mês!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 6. "Contratos Descomplicados (Visual Law)" Section -->
-    <section class="py-16 md:py-20 section-transition">
-        <div class="container mx-auto px-6">
-            <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
-                Contratos de Energia sem Asteriscos
+                Sua Conta de Luz e Contratos Descomplicados
             </h2>
             <div class="grid md:grid-cols-2 gap-8">
                 <div class="p-6 bg-white rounded-xl shadow-lg">
                     <div class="flex items-center mb-3">
                          <svg class="w-8 h-8 text-ccee-verde-agua mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                        <h4 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro">Cláusula de Vigência</h4>
+                        <h4 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro">Clareza nos Contratos</h4>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                         <p class="text-ccee-cinza-medio mb-2"><strong>O que é:</strong> Período de validade do seu contrato.</p>
@@ -514,7 +439,7 @@
                 <div class="p-6 bg-white rounded-xl shadow-lg">
                     <div class="flex items-center mb-3">
                         <svg class="w-8 h-8 text-ccee-verde-agua mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                        <h4 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro">Condições de Pagamento</h4>
+                        <h4 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro">Pagamentos Transparentes</h4>
                     </div>
                     <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
                         <p class="text-ccee-cinza-medio mb-2"><strong>Como pagar:</strong> Boleto bancário ou débito automático.</p>
@@ -524,32 +449,38 @@
                 </div>
             </div>
              <p class="text-center text-ccee-cinza-medio mt-10 text-lg">Utilizamos Visual Law para tornar os termos claros e compreensíveis, sem letras miúdas!</p>
+             <!-- Botão Adicionado Aqui -->
+             <div class="text-center mt-6">
+                 <a href="visual-law.html" class="font-poppins bg-ccee-azul-petroleo text-white font-semibold py-2 px-6 rounded-lg text-base hover:bg-ccee-azul-petroleo-dark transition duration-300 ease-in-out transform hover:scale-105">
+                     Veja um Exemplo de Contrato!
+                 </a>
+             </div>
         </div>
     </section>
 
     <!-- 7. Nossos Valores Section -->
-    <section id="valores" class="py-16 md:py-20 bg-ccee-cinza-claro section-transition">
+    <section id="valores" class="py-16 md:py-20"> <!-- bg-ccee-cinza-claro removido para alternar cor -->
         <div class="container mx-auto px-6">
             <h2 class="font-poppins text-3xl md:text-4xl font-bold text-center text-ccee-cinza-escuro mb-12">
                 melie: Transparência, Autonomia e Você.
             </h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="text-center p-6">
                     <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                     <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Transparência</h3>
                     <p class="text-ccee-cinza-medio">Informações claras e acessíveis sobre sua energia e contratos.</p>
                 </div>
-                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="text-center p-6">
                     <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Autonomia</h3>
                     <p class="text-ccee-cinza-medio">Você no controle das suas escolhas energéticas, com poder de decisão.</p>
                 </div>
-                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="text-center p-6">
                      <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Empoderamento</h3>
                     <p class="text-ccee-cinza-medio">Ferramentas e conhecimento para você tomar as melhores decisões.</p>
                 </div>
-                <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="text-center p-6">
                     <svg class="w-16 h-16 mx-auto mb-4 text-ccee-azul-petroleo" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9.004 9.004 0 008.688-6.29A7.001 7.001 0 0112 21zM3.312 14.71A9.004 9.004 0 0012 21a7.001 7.001 0 01-8.688-6.29zM12 3a9.004 9.004 0 018.688 6.29A7.001 7.001 0 0012 3zM3.312 9.29A9.004 9.004 0 0112 3a7.001 7.001 0 00-8.688 6.29z"></path></svg>
                     <h3 class="font-poppins text-xl font-semibold text-ccee-cinza-escuro mb-2">Inclusão Digital</h3>
                     <p class="text-ccee-cinza-medio">Simplificando o acesso ao mercado livre para todos, de forma intuitiva.</p>
@@ -581,22 +512,13 @@
         <div class="modal-content">
             <span class="close-button" id="closeModalButton">&times;</span>
             <h3 id="modalTitle" class="font-poppins text-2xl font-semibold text-ccee-azul-petroleo mb-4">Insights da melie ✨</h3>
-            <div id="modalLoader" class="loader" style="display: none;"></div> <!-- Loader escondido por padrão -->
+            <div id="modalLoader" class="loader" style="display: none;"></div>
             <div id="modalResponse" class="text-ccee-cinza-escuro leading-relaxed">
             </div>
         </div>
     </div>
 
     <script>
-        // Removido o setTimeout para loading-analysis, pois o conteúdo da análise agora é estático.
-        // Se quiser manter um delay visual para a exibição da análise, pode adicionar um setTimeout aqui.
-        // Exemplo:
-        // setTimeout(() => {
-        //     const resultDiv = document.getElementById('analysis-result');
-        //     if (resultDiv) resultDiv.style.display = 'block';
-        // }, 500); // Meio segundo de delay
-
-
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -616,11 +538,11 @@
         const closeModalButton = document.getElementById('closeModalButton');
         const modalTitle = document.getElementById('modalTitle');
         const modalResponse = document.getElementById('modalResponse');
-        const modalLoader = document.getElementById('modalLoader'); // Loader ainda existe, mas não será mostrado
+        const modalLoader = document.getElementById('modalLoader');
 
         function openModal() {
-            modalResponse.innerHTML = ''; // Limpa resposta anterior
-            modalLoader.style.display = 'none'; // Garante que o loader não apareça
+            modalResponse.innerHTML = '';
+            modalLoader.style.display = 'none';
             geminiModal.style.display = 'block';
         }
 
@@ -634,45 +556,9 @@
             }
         }
 
-        // Textos estáticos para os botões
-        const billExplanationText = `
-            <p class="mb-4">Olá! Que legal que você já fez a simulação com a gente na melie! 😊 É o primeiro passo pra entender como economizar na sua conta de luz.</p>
-            <p class="mb-4">Vamos lá, vou te explicar o que esses números significam de forma bem direta:</p>
-            <ul class="list-disc list-inside mb-4 space-y-2">
-                <li><strong>Seu consumo de 350 kWh/mês:</strong> Esse número é o "tamanho" do seu consumo de energia, ou seja, a quantidade de eletricidade que seus aparelhos usaram em um mês. Pense nisso como a "gasolina" que sua casa consumiu. 350 kWh é um consumo típico para muitas residências, mostrando a energia necessária para as suas necessidades diárias.</li>
-                <li><strong>Sua economia potencial de R$ 75,00 por mês:</strong> Essa é a parte mais animadora! 🎉 Isso significa que, se você migrar para o Mercado Livre de Energia através da melie, você pode ter uma conta de luz aproximadamente R$ 75,00 <strong>mais barata</strong> a cada mês do que você paga hoje no mercado tradicional. É um dinheiro que fica no seu bolso todo mês, somando R$ 900,00 em economia ao longo de um ano!</li>
-            </ul>
-            <p class="mb-2 font-semibold">Pra te ajudar a "desvendar" sua conta atual e ver onde a economia "entra", aqui vão umas dicas rápidas:</p>
-            <ol class="list-decimal list-inside mb-4 space-y-1">
-                <li><strong>Procure pelo seu consumo em kWh:</strong> Geralmente vem destacado no meio da fatura, é a quantidade exata que você usou no mês (esse número deve ser próximo dos 350 kWh da sua simulação).</li>
-                <li><strong>Veja o preço do kWh:</strong> Sua conta tem um valor total e, em algum lugar, mostra quanto custou cada kWh consumido (esse valor inclui a tarifa da distribuidora pelo uso da rede e o custo da energia em si).</li>
-                <li><strong>Observe os impostos e taxas:</strong> Uma boa parte do valor da sua conta são tributos (como ICMS, PIS/COFINS) e encargos setoriais obrigatórios.</li>
-                <li><strong>As Bandeiras Tarifárias:</strong> Aquelas cores (verde, amarela, vermelha) são acréscimos no preço do kWh dependendo de como está a geração de energia no país.</li>
-            </ol>
-            <p class="mb-2 font-semibold">E como a melie ajuda nisso tudo?</p>
-            <p class="mb-4">A melie entra justamente para simplificar a sua migração para o Mercado Livre de Energia. No mercado livre, você tem a chance de "comprar" a energia elétrica diretamente de geradores ou comercializadores, geralmente a um preço mais competitivo do que a tarifa que você paga hoje para a distribuidora local (aquela que chega na sua casa). Essa diferença de preço na energia é o que gera a economia de R$ 75,00 que a sua simulação mostrou! A gente cuida de toda a burocracia e te mostra as melhores opções para o seu perfil de consumo, como esses 350 kWh por mês, para você economizar sem dor de cabeça.</p>
-            <p>Espero que essa explicação tenha te ajudado a entender melhor! A economia é real e o Mercado Livre é uma ótima oportunidade. Se tiver mais perguntas ou quiser dar o próximo passo, estamos aqui pra te ajudar!</p>
-        `;
+        const billExplanationText = `<p class="mb-4">Olá! Que legal que você já fez a simulação com a gente na melie! 😊 É o primeiro passo pra entender como economizar na sua conta de luz.</p><p class="mb-4">Vamos lá, vou te explicar o que esses números significam de forma bem direta:</p><ul class="list-disc list-inside mb-4 space-y-2"><li><strong>Seu consumo de 350 kWh/mês:</strong> Esse número é o "tamanho" do seu consumo de energia, ou seja, a quantidade de eletricidade que seus aparelhos usaram em um mês. Pense nisso como a "gasolina" que sua casa consumiu. 350 kWh é um consumo típico para muitas residências, mostrando a energia necessária para as suas necessidades diárias.</li><li><strong>Sua economia potencial de R$ 75,00 por mês:</strong> Essa é a parte mais animadora! 🎉 Isso significa que, se você migrar para o Mercado Livre de Energia através da melie, você pode ter uma conta de luz aproximadamente R$ 75,00 <strong>mais barata</strong> a cada mês do que você paga hoje no mercado tradicional. É um dinheiro que fica no seu bolso todo mês, somando R$ 900,00 em economia ao longo de um ano!</li></ul><p class="mb-2 font-semibold">Pra te ajudar a "desvendar" sua conta atual e ver onde a economia "entra", aqui vão umas dicas rápidas:</p><ol class="list-decimal list-inside mb-4 space-y-1"><li><strong>Procure pelo seu consumo em kWh:</strong> Geralmente vem destacado no meio da fatura, é a quantidade exata que você usou no mês (esse número deve ser próximo dos 350 kWh da sua simulação).</li><li><strong>Veja o preço do kWh:</strong> Sua conta tem um valor total e, em algum lugar, mostra quanto custou cada kWh consumido (esse valor inclui a tarifa da distribuidora pelo uso da rede e o custo da energia em si).</li><li><strong>Observe os impostos e taxas:</strong> Uma boa parte do valor da sua conta são tributos (como ICMS, PIS/COFINS) e encargos setoriais obrigatórios.</li><li><strong>As Bandeiras Tarifárias:</strong> Aquelas cores (verde, amarela, vermelha) são acréscimos no preço do kWh dependendo de como está a geração de energia no país.</li></ol><p class="mb-2 font-semibold">E como a melie ajuda nisso tudo?</p><p class="mb-4">A melie entra justamente para simplificar a sua migração para o Mercado Livre de Energia. No mercado livre, você tem a chance de "comprar" a energia elétrica diretamente de geradores ou comercializadores, geralmente a um preço mais competitivo do que a tarifa que você paga hoje para a distribuidora local (aquela que chega na sua casa). Essa diferença de preço na energia é o que gera a economia de R$ 75,00 que a sua simulação mostrou! A gente cuida de toda a burocracia e te mostra as melhores opções para o seu perfil de consumo, como esses 350 kWh por mês, para você economizar sem dor de cabeça.</p><p>Espero que essa explicação tenha te ajudado a entender melhor! A economia é real e o Mercado Livre é uma ótima oportunidade. Se tiver mais perguntas ou quiser dar o próximo passo, estamos aqui pra te ajudar!</p>`;
+        const offerComparisonText = `<p class="mb-4">Para escolher a melhor oferta, você precisará ponderar seus três critérios: economia, energia limpa e termos do contrato. Não há uma única oferta que seja a melhor em todos os aspectos simultaneamente.</p><p class="mb-3 font-semibold">Analisando as opções:</p><ul class="list-disc list-inside mb-4 space-y-2"><li><strong>Livre Energia Plus:</strong> Oferece a melhor economia (menor tarifa e maior economia estimada). Contudo, <strong>não</strong> utiliza energia renovável e tem o contrato mais longo (24 meses). É ideal se a economia máxima for sua prioridade absoluta, mesmo abrindo mão da sustentabilidade e com um compromisso de prazo maior.</li><li><strong>Energia Solar Varejo:</strong> Oferece energia limpa (solar certificada), um bom equilíbrio de economia (tarifa intermediária, economia razoável) e um contrato de prazo justo (12 meses). É uma forte candidata se você valoriza a energia renovável e quer um bom equilíbrio entre preço e termos contratuais, sem o compromisso de 24 meses.</li><li><strong>EcoPower Brasil:</strong> Oferece energia limpa e a maior flexibilidade contratual ("Sem fidelidade"). No entanto, é a mais cara (maior tarifa e menor economia estimada). É a escolha certa se energia limpa e <strong>total</strong> flexibilidade contratual forem mais importantes para você do que a economia imediata.</li></ul><p class="mb-3 font-semibold">Recomendação:</p><ul class="list-disc list-inside mb-4 space-y-2"><li>Se sua prioridade principal é ter <strong>energia limpa</strong> <em>e</em> um <strong>contrato equilibrado</strong> (nem muito longo, nem com o maior custo), a <strong>Energia Solar Varejo</strong> parece ser a opção que melhor alinha esses pontos.</li><li>Se a <strong>economia máxima</strong> for o fator decisivo, mesmo sem energia limpa, a <strong>Livre Energia Plus</strong> é a que se destaca nesse quesito.</li><li>Se a <strong>flexibilidade contratual</strong> (sem fidelidade) <em>junto</em> com a energia limpa for crucial, e você aceitar pagar mais por isso, a <strong>EcoPower Brasil</strong> é a escolha.</li></ul><p>Considere também que a "Economia Estimada" é apenas uma projeção; o fator mais direto na sua conta é a tarifa (R$/kWh) multiplicada pelo seu consumo real.</p>`;
 
-        const offerComparisonText = `
-            <p class="mb-4">Para escolher a melhor oferta, você precisará ponderar seus três critérios: economia, energia limpa e termos do contrato. Não há uma única oferta que seja a melhor em todos os aspectos simultaneamente.</p>
-            <p class="mb-3 font-semibold">Analisando as opções:</p>
-            <ul class="list-disc list-inside mb-4 space-y-2">
-                <li><strong>Livre Energia Plus:</strong> Oferece a melhor economia (menor tarifa e maior economia estimada). Contudo, <strong>não</strong> utiliza energia renovável e tem o contrato mais longo (24 meses). É ideal se a economia máxima for sua prioridade absoluta, mesmo abrindo mão da sustentabilidade e com um compromisso de prazo maior.</li>
-                <li><strong>Energia Solar Varejo:</strong> Oferece energia limpa (solar certificada), um bom equilíbrio de economia (tarifa intermediária, economia razoável) e um contrato de prazo justo (12 meses). É uma forte candidata se você valoriza a energia renovável e quer um bom equilíbrio entre preço e termos contratuais, sem o compromisso de 24 meses.</li>
-                <li><strong>EcoPower Brasil:</strong> Oferece energia limpa e a maior flexibilidade contratual ("Sem fidelidade"). No entanto, é a mais cara (maior tarifa e menor economia estimada). É a escolha certa se energia limpa e <strong>total</strong> flexibilidade contratual forem mais importantes para você do que a economia imediata.</li>
-            </ul>
-            <p class="mb-3 font-semibold">Recomendação:</p>
-            <ul class="list-disc list-inside mb-4 space-y-2">
-                <li>Se sua prioridade principal é ter <strong>energia limpa</strong> <em>e</em> um <strong>contrato equilibrado</strong> (nem muito longo, nem com o maior custo), a <strong>Energia Solar Varejo</strong> parece ser a opção que melhor alinha esses pontos.</li>
-                <li>Se a <strong>economia máxima</strong> for o fator decisivo, mesmo sem energia limpa, a <strong>Livre Energia Plus</strong> é a que se destaca nesse quesito.</li>
-                <li>Se a <strong>flexibilidade contratual</strong> (sem fidelidade) <em>junto</em> com a energia limpa for crucial, e você aceitar pagar mais por isso, a <strong>EcoPower Brasil</strong> é a escolha.</li>
-            </ul>
-            <p>Considere também que a "Economia Estimada" é apenas uma projeção; o fator mais direto na sua conta é a tarifa (R$/kWh) multiplicada pelo seu consumo real.</p>
-        `;
-
-
-        // Botão "Entender Melhor Minha Conta"
         const explainBillButton = document.getElementById('explainBillButton');
         if (explainBillButton) {
             explainBillButton.onclick = function() {
@@ -682,7 +568,6 @@
             }
         }
 
-        // Botão "Qual oferta é ideal para mim?"
         const compareOffersButton = document.getElementById('compareOffersButton');
         if (compareOffersButton) {
             compareOffersButton.onclick = function() {
@@ -691,8 +576,7 @@
                 modalResponse.innerHTML = offerComparisonText;
             }
         }
-
-        // Função callGeminiAPI removida, pois não é mais necessária.
     </script>
 </body>
 </html>
+
