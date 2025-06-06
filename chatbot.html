@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>melie - Assistente de Energia</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --header-bg: #005E54; /* Verde escuro para o header */
+            --chat-bg: #EFEAE2; /* Fundo do chat similar ao WhatsApp */
+            --user-bubble-bg: #E7FFDB; /* Verde claro para balão do usuário */
+            --bot-bubble-bg: #FFFFFF; /* Balão do bot */
+            --text-primary: #111b21; /* Cor principal do texto */
+            --text-secondary: #54656F; /* Cor secundária do texto (timestamps) */
+            --button-primary-bg: #008069; /* Verde para botões primários */
+            --button-primary-text: #FFFFFF;
+            --input-area-bg: #F0F2F5;
+            --border-color: #e9edef;
+            --shadow-light: 0 1px 2px rgba(11, 20, 26, 0.08);
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --border-radius-large: 12px;
+            --border-radius-small: 8px;
+            --animation-duration: 0.3s;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #dddbd1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 420px;
+            height: 100%;
+            max-height: 90vh;
+            background-color: var(--chat-bg);
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .chat-header {
+            background-color: var(--header-bg);
+            color: var(--button-primary-text);
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1em;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        .chat-header .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: var(--header-bg);
+            font-size: 0.9em;
+        }
+        
+        .chat-header .chat-info .name {
+            font-weight: 500;
+        }
+        .chat-header .chat-info .status {
+            font-size: 0.8em;
+            opacity: 0.85;
+        }
+
+        .messages {
+            flex-grow: 1;
+            padding: 16px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .messages::-webkit-scrollbar { width: 6px; }
+        .messages::-webkit-scrollbar-track { background: transparent; }
+        .messages::-webkit-scrollbar-thumb { background: #BFC0C0; border-radius: 3px; }
+        .messages::-webkit-scrollbar-thumb:hover { background: #A0A0A0; }
+
+
+        .message-wrapper {
+            display: flex;
+            max-width: 85%;
+            animation: slideInUp var(--animation-duration) ease-out forwards;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-wrapper.user { align-self: flex-end; }
+        .message-wrapper.bot { align-self: flex-start; }
+
+        .message {
+            padding: 8px 12px;
+            border-radius: var(--border-radius-small);
+            line-height: 1.45;
+            font-size: 0.98em;
+            box-shadow: var(--shadow-light);
+            word-wrap: break-word;
+        }
+        
+        .message.user {
+            background-color: var(--user-bubble-bg);
+            color: var(--text-primary);
+        }
+
+        .message.bot {
+            background-color: var(--bot-bubble-bg);
+            color: var(--text-primary);
+        }
+        
+        .message.bot a {
+            color: #00A884;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+
+        .timestamp {
+            font-size: 0.75em;
+            color: var(--text-secondary);
+            text-align: right;
+            margin-top: 5px;
+            float: right;
+            margin-left: 10px;
+        }
+
+        .options-container {
+            padding: 8px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background-color: var(--input-area-bg);
+            border-top: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .option-button {
+            background-color: var(--bot-bubble-bg);
+            color: var(--header-bg);
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            border-radius: var(--border-radius-small);
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s, transform 0.1s;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .option-button:hover {
+            background-color: var(--header-bg);
+            color: var(--button-primary-text);
+            border-color: var(--header-bg);
+            transform: scale(1.02);
+        }
+
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: var(--input-area-bg);
+            border-top: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .input-area input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 24px;
+            background-color: #ffffff;
+            font-size: 0.95em;
+            margin-right: 8px;
+            outline: none;
+            transition: box-shadow 0.2s;
+        }
+
+        .input-area input[type="text"]:focus {
+             box-shadow: 0 0 0 2px var(--button-primary-bg);
+        }
+
+        .input-area button {
+            background-color: var(--button-primary-bg);
+            color: var(--button-primary-text);
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s, transform 0.2s;
+            font-size: 1.3em;
+        }
+        .input-area button:hover {
+            background-color: #005E54;
+            transform: rotate(15deg);
+        }
+        .send-icon { fill: white; width: 24px; height: 24px; }
+        
+        .typing-indicator .typing-dots { display: flex; align-items: center; padding: 5px 0; }
+        .typing-indicator .typing-dots span {
+            height: 8px; width: 8px;
+            margin: 0 2px;
+            background-color: #8E8E8E;
+            border-radius: 50%;
+            display: inline-block;
+            animation: dot-pulse 1.4s infinite ease-in-out both;
+        }
+        .typing-indicator .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes dot-pulse {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Cabeçalho do Chat -->
+        <div class="chat-header">
+            <div class="avatar">
+                <!-- Certifique-se que o caminho para a imagem está correto -->
+                <img src="images/avatar-whatsapp.png" alt="Avatar melie" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="chat-info">
+                 <!-- Nome + Selo de Verificado -->
+                <div style="display: flex; align-items: center;">
+                    <div class="name" style="margin-right: 5px;">melie</div>
+                    <svg style="width: 16px; height: 16px; color: #3498db;" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <!-- Área de Mensagens -->
+        <div class="messages" id="messages">
+        </div>
+        <!-- Área de Opções -->
+        <div class="options-container" id="optionsContainer">
+        </div>
+        <!-- Área de Input -->
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="Digite uma mensagem...">
+            <button onclick="handleSend()" aria-label="Enviar">
+                <svg class="send-icon" viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const messagesDiv = document.getElementById('messages');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const userInput = document.getElementById('userInput');
+
+        let currentState = 'NIVEL_0';
+        let userName = '';
+        let userPhone = '';
+        let typingIndicator;
+
+        function createTypingIndicator() {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'message-wrapper bot typing-indicator';
+            wrapper.style.display = 'none';
+            wrapper.innerHTML = `<div class="message bot"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+            messagesDiv.appendChild(wrapper);
+            typingIndicator = wrapper;
+        }
+
+        function showTypingIndicator(show) {
+            if (typingIndicator) {
+                typingIndicator.style.display = show ? 'flex' : 'none';
+                if (show) messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }
+        }
+        
+        const melieScript = {
+            NIVEL_0: {
+                bot: [
+                    "Olá! 👋 Eu sou a melie, sua assistente virtual e marketplace de energia livre para baixa tensão! Cheguei para descomplicar o Mercado Livre de Energia para você!",
+                    "Minha missão é te mostrar os caminhos para economizar na conta de luz e ganhar mais liberdade de escolha. Prontinho(a) para começar essa jornada?",
+                    "Como posso te ajudar hoje?"
+                ],
+                options: [
+                    { text: "O que é esse tal de Mercado Livre de Energia? 💡", nextState: "OPCAO_1" },
+                    { text: "melie, quais são as vantagens e os pontos de atenção? ⚖️", nextState: "OPCAO_2" },
+                    { text: "Como eu economizo na conta de luz com isso, melie? 📉", nextState: "OPCAO_3" },
+                    { text: "melie, você pode dar uma olhada na minha conta pra ver se vale a pena? 📸", nextState: "OPCAO_4_INICIO" },
+                    { text: "Quero saber como faço pra mudar para o Mercado Livre! 🚀", nextState: "OPCAO_5" },
+                    { text: "Tem um dicionário de termos do setor elétrico, melie? 📖", nextState: "OPCAO_7_INICIO" },
+                    { text: "Prefiro falar com um especialista. 🙋", nextState: "OPCAO_8_INICIO" }
+                ]
+            },
+            OPCAO_1: {
+                bot: [
+                    "Claro! Deixa eu te explicar de um jeito bem simples: no Mercado Livre de Energia, é como se você pudesse escolher o seu \"supermercado\" de energia elétrica. Você negocia preços, prazos e até se quer energia de fontes renováveis, como solar ou eólica. Bem diferente do mercado tradicional (o cativo), onde a gente só pode comprar da distribuidora da nossa região, né?",
+                    "E a boa notícia é que essa liberdade agora está chegando para todo mundo, inclusive para residências e pequenos comércios como o seu!",
+                    "Quer se aprofundar em algum detalhe ou prefere voltar ao menu?"
+                ],
+                options: [
+                    { text: "Como funciona a negociação de preços?", nextState: "OPCAO_1_SUB_NEGOCIACAO" },
+                    { text: "Quais são as diferenças para o mercado cativo?", nextState: "OPCAO_1_SUB_DIFERENCAS" },
+                    { text: "Voltar ao menu principal ↩️", nextState: "NIVEL_0" }
+                ]
+            },
+            OPCAO_1_SUB_NEGOCIACAO: { bot: ["A negociação de preços é bem direta! Você conversa com as comercializadoras e busca fechar o melhor acordo, pensando no quanto você consome e por quanto tempo quer o contrato. É como pechinchar, mas para a sua energia! 😊"], options: [{ text: "Entendi! Voltar.", nextState: "OPCAO_1"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_1_SUB_DIFERENCAS: { bot: ["No mercado cativo, é tipo um pacote fechado: a ANEEL define os preços e você só tem a distribuidora local como opção. Já no Mercado Livre, você tem o poder de escolha! Negocia com diferentes fornecedores (geradores ou comercializadoras), buscando as melhores condições pra você. Mais liberdade e chance de economizar!"], options: [{ text: "Saquei! Voltar.", nextState: "OPCAO_1"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_2: {
+                bot: [
+                    "Olha, mudar pro Mercado Livre pode ser uma ótima! As principais vantagens que o pessoal mais gosta são:",
+                    "✅ <strong>Economia:</strong> Quem não quer pagar menos na conta de luz, né? Negociando bem, o desconto pode ser bem interessante.",
+                    "✅ <strong>Liberdade de Escolha:</strong> Você no comando! Escolhe quem vai te fornecer energia e as condições.",
+                    "✅ <strong>Previsibilidade:</strong> Com contratos de preço fixo, você fica mais protegido(a) daquelas variações chatas na tarifa que às vezes assustam a gente.",
+                    "✅ <strong>Pegada Sustentável:</strong> Dá pra escolher energia limpinha, de fontes renováveis como solar, eólica... ajudando o planeta! 🌎",
+                    "Mas, como tudo na vida, é bom ficar de olho em alguns pontos também, tá?",
+                    "⚠️ <strong>Gestão do Contrato:</strong> Exige um pouquinho mais da sua atenção para acompanhar o contrato de energia. Mas nós da melie estamos aqui pra te dar suporte!",
+                    "⚠️ <strong>Flutuações do Mercado:</strong> Apesar da previsibilidade do seu contrato atual, o mercado de energia como um todo pode variar, o que pode influenciar futuras negociações quando seu contrato acabar.",
+                    "⚠️ <strong>Escolher Bem o Fornecedor:</strong> É super importante escolher uma comercializadora varejista que seja sólida e de confiança. Nós podemos te ajudar a encontrar as melhores opções!",
+                    "E aí, quer que eu detalhe algum desses pontos ou já quer fazer uma simulação pra ver como seria no seu caso?"
+                ],
+                options: [
+                    { text: "Sim, quero entender melhor a economia!", nextState: "OPCAO_3" },
+                    { text: "Como escolho um fornecedor seguro, melie?", nextState: "OPCAO_2_SUB_FORNECEDOR" },
+                    { text: "Como a previsibilidade me protege de aumentos?", nextState: "OPCAO_2_SUB_PREVISIBILIDADE" },
+                    { text: "Voltar ao menu principal ↩️", nextState: "NIVEL_0" }
+                ]
+            },
+            OPCAO_2_SUB_FORNECEDOR: { bot: ["Boa pergunta! Para escolher um fornecedor seguro, a dica é pesquisar a reputação da comercializadora varejista e conferir se ela é autorizada pela ANEEL. Vale também dar uma olhada no tempo de mercado dela e, se possível, buscar referências de outros clientes. Transparência e bom atendimento contam muito! Aqui na melie, já fazemos uma curadoria para te apresentar opções confiáveis."], options: [{ text: "Boas dicas, melie! Voltar.", nextState: "OPCAO_2"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_2_SUB_PREVISIBILIDADE: { bot: ["É simples: no Mercado Livre, muitos contratos fixam o preço da sua energia por um período determinado. Isso significa que, mesmo que as tarifas no mercado cativo subam por causa da chuva, do dólar ou outras coisas, o seu preço combinado continua o mesmo até o fim do contrato. Dá uma paz de espírito, né?"], options: [{ text: "Faz sentido! Voltar.", nextState: "OPCAO_2"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_3: {
+                bot: [
+                    "A mágica da economia acontece principalmente porque você vai negociar o preço da energia (aquela parte da conta chamada \"Tarifa de Energia\" ou TE) direto com a comercializadora. No mercado cativo, esse preço é definido pela ANEEL e já vem com um monte de outras coisinhas embutidas.",
+                    "Além disso, dependendo do seu jeito de consumir energia e do que você negociar, pode conseguir contratos bem mais camaradas! A economia varia de caso a caso, por isso uma simulação é legal.",
+                    "Ah, um detalhe importante: a conta ainda vai ter a TUSD (Tarifa de Uso do Sistema de Distribuição), que é o que a gente paga pra distribuidora local usar os fios e postes pra energia chegar até você. O que você negocia no Mercado Livre é a energia em si (a TE), sacou? 😉",
+                    "Que tal a gente dar uma espiada na sua conta de luz pra ter uma ideia mais concreta?"
+                ],
+                options: [
+                    { text: "Sim, melie, analisa minha conta! 📸", nextState: "OPCAO_4_INICIO" },
+                    { text: "Quais impostos têm na conta do Mercado Livre?", nextState: "OPCAO_3_SUB_IMPOSTOS" },
+                    { text: "Qual a diferença entre TE e TUSD de novo?", nextState: "OPCAO_3_SUB_TE_TUSD" },
+                    { text: "Voltar ao menu principal ↩️", nextState: "NIVEL_0" }
+                ]
+            },
+            OPCAO_3_SUB_IMPOSTOS: { bot: ["Os impostos principais são o ICMS (que varia de estado pra estado), PIS e COFINS. Eles também estão na conta do mercado cativo, viu? A diferença pode estar na forma como são calculados ou em alguma condição específica do seu contrato no Mercado Livre, mas eles continuam lá."], options: [{ text: "Entendido. Voltar.", nextState: "OPCAO_3"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_3_SUB_TE_TUSD: { bot: ["Vamos lá: a <strong>TE (Tarifa de Energia)</strong> é o preço da energia que você consome, tipo o 'produto' em si. É essa parte que você negocia no Mercado Livre. Já a <strong>TUSD (Tarifa de Uso do Sistema de Distribuição)</strong> é como um 'pedágio' que você paga pelo uso dos fios e postes da distribuidora pra energia chegar na sua casa ou comércio. Essa parte continua sendo regulada e paga pra distribuidora local, mesmo no Mercado Livre."], options: [{ text: "Agora ficou claro, melie! Voltar.", nextState: "OPCAO_3"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_4_INICIO: {
+                bot: ["Boa ideia! Para eu, a melie, conseguir te dar uma estimativa legal de economia, preciso que você me mande uma foto bem nítida da sua última conta de luz, tá? Tenta pegar ela inteira, mostrando direitinho o consumo (em kWh), a tarifa e o valor total. \n\n(Como esta é uma simulação, apenas digite 'foto enviada' ou algo parecido no campo abaixo e pressione Enviar 😉)"],
+                inputExpected: true,
+                nextStateAfterInput: "OPCAO_4_RECEBIDO"
+            },
+            OPCAO_4_RECEBIDO: {
+                bot: [],
+                onEnter: async (userInputText) => {
+                    addBotMessage("Foto recebida! 👍 Só um minutinho enquanto eu dou uma processada aqui nas informações...");
+                    showTypingIndicator(true);
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                    showTypingIndicator(false);
+                    const sucesso = Math.random() > 0.1; // 90% de chance de sucesso
+                    if (sucesso) {
+                        const consumoSimulado = Math.floor(Math.random() * 300) + 150;
+                        const economiaSimulada = Math.floor(Math.random() * 15) + 5;
+                        addBotMessage(`Prontinho! Analisei sua conta (simuladamente, claro!). Seu consumo foi de ${consumoSimulado} kWh no último mês. Com base nesse perfil e nas condições que temos hoje no Mercado Livre, a gente estima que você poderia ter uma economia de ATÉ ${economiaSimulada}% se mudasse! E ainda teria mais previsibilidade nos seus gastos com energia, que tal?`);
+                        handleStateChange("OPCAO_4_SUCESSO");
+                    } else {
+                        addBotMessage("Puxa... não consegui ler todas as informações da sua conta (simulada). Será que você poderia mandar uma 'nova foto' com melhor iluminação e foco, por favor?");
+                        handleStateChange("OPCAO_4_FALHA");
+                    }
+                }
+            },
+            OPCAO_4_SUCESSO: {
+                bot: ["E aí, curtiu a estimativa? Quer que um dos nossos especialistas aqui da melie entre em contato para detalhar essa simulação e te explicar os próximos passos, sem compromisso nenhum?"],
+                options: [
+                    { text: "Sim, quero falar com especialista! 🙋", nextState: "OPCAO_8_INICIO" },
+                    { text: "Não, obrigado. Quero tirar mais dúvidas.", nextState: "NIVEL_0" },
+                    { text: "melie, como essa economia é calculada?", nextState: "OPCAO_4_CALCULO_ECONOMIA" },
+                    { text: "Gostaria de 'salvar' esta simulação.", nextState: "OPCAO_4_SALVAR_SIMULACAO" }
+                ]
+            },
+            OPCAO_4_FALHA: {
+                bot: [],
+                options: [
+                    { text: "Tentar 'enviar' outra foto 📸", nextState: "OPCAO_4_INICIO" },
+                    { text: "Prefiro informar meu consumo médio", nextState: "OPCAO_4_INFORMAR_CONSUMO_INPUT" },
+                    { text: "Voltar ao menu principal ↩️", nextState: "NIVEL_0" }
+                ]
+            },
+            OPCAO_4_INFORMAR_CONSUMO_INPUT: {
+                bot: ["Sem problemas! Me diz aí, qual seu consumo médio mensal em kWh? (Só os números, por favor)"],
+                inputExpected: true,
+                nextStateAfterInput: "OPCAO_4_CONSUMO_RECEBIDO"
+            },
+            OPCAO_4_CONSUMO_RECEBIDO: {
+                onEnter: (userInputText) => {
+                    const consumo = parseInt(userInputText);
+                    if (isNaN(consumo) || consumo <= 0) {
+                        addBotMessage("Hmm, esse valor não parece um consumo válido. Poderia me informar um número positivo para o consumo em kWh, por favor?");
+                        handleStateChange("OPCAO_4_INFORMAR_CONSUMO_INPUT");
+                        return;
+                    }
+                    const economiaSimulada = Math.floor(Math.random() * 12) + 4;
+                    addBotMessage(`Entendido! Com um consumo de ${consumo} kWh, a gente estima uma economia de ATÉ ${economiaSimulada}% ao migrar para o Mercado Livre. Lembrando que essa é só uma primeira ideia, tá?`);
+                    handleStateChange("OPCAO_4_SUCESSO");
+                }
+            },
+            OPCAO_4_CALCULO_ECONOMIA: { bot: ["Basicamente, a gente compara o que você pagaria no mercado cativo (com as tarifas da distribuidora) com o que pagaria no Mercado Livre, onde o preço da energia (a TE) é negociado. Mesmo pagando a TUSD (uso da rede) e os impostos, a economia na TE pode fazer uma bela diferença no final do mês!"], options: [{ text: "Entendi, melie!", nextState: "OPCAO_4_SUCESSO"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_4_SALVAR_SIMULACAO: { bot: ["Que legal que gostou! Para 'enviarmos' essa simulação para você (lembre-se, é só um faz de conta por enquanto 😉), qual seu e-mail?"], inputExpected: true, nextStateAfterInput: "OPCAO_4_EMAIL_RECEBIDO" },
+            OPCAO_4_EMAIL_RECEBIDO: {
+                onEnter: (userInputText) => {
+                    addBotMessage(`Perfeito! A simulação (imaginária, rs) foi "enviada" para ${userInputText}. Se tiver mais dúvidas, estou por aqui!`);
+                    handleStateChange("NIVEL_0");
+                }
+            },
+            OPCAO_5: {
+                bot: [
+                    "Opa, já querendo mais liberdade? Adorei! O caminho para o Mercado Livre de Energia tem alguns passos, mas relaxa que eu, a melie, te ajudo a entender cada um:",
+                    "1. <strong>Conferir se você já pode:</strong> A gente precisa confirmar se seu perfil de consumo já se encaixa nas regrinhas pra baixa tensão.",
+                    "2. <strong>Escolher sua Parceira de Energia:</strong> É a chamada Comercializadora Varejista. Ela vai te representar no mercado e te fornecer a energia. Nós da melie te ajudamos com isso!",
+                    "3. <strong>Simulação e Proposta na Mão:</strong> A comercializadora vai analisar seu consumo e te apresentar uma proposta.",
+                    "4. <strong>Contrato Assinado, Futuro Traçado:</strong> Hora de assinar o contrato de compra de energia.",
+                    "5. <strong>Avisar a Distribuidora Atual:</strong> É preciso notificar sua distribuidora de que você está de mudança para o Mercado Livre.",
+                    "Parece um monte de coisa, né? Mas fica sussa, a comercializadora varejista que você escolher vai te dar toda a assessoria, e nós da melie estamos aqui para facilitar!"
+                ],
+                options: [
+                    { text: "Como escolher uma comercializadora?", nextState: "OPCAO_5_SUB_ESCOLHER_COMERCIALIZADORA" },
+                    { text: "Quais documentos preciso ter?", nextState: "OPCAO_5_SUB_DOCUMENTOS" },
+                    { text: "Quanto tempo leva tudo isso, melie?", nextState: "OPCAO_5_SUB_TEMPO" },
+                    { text: "E se eu quiser voltar pro mercado cativo?", nextState: "OPCAO_5_SUB_VOLTAR_CATIVO" },
+                    { text: "Voltar ao menu principal ↩️", nextState: "NIVEL_0" }
+                ]
+            },
+            OPCAO_5_SUB_ESCOLHER_COMERCIALIZADORA: { bot: ["É como escolher um bom parceiro! Pesquise a reputação da empresa, veja se ela é autorizada pela ANEEL. Vale conferir o tempo de mercado, comparar as propostas com calma e, se puder, buscar opiniões de outros clientes. Uma boa comercializadora é transparente e te dá suporte. A melie te ajuda a conectar com as melhores!"], options: [{ text: "Entendi, valeu melie!", nextState: "OPCAO_5"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_5_SUB_DOCUMENTOS: { bot: ["Geralmente, pedem seus documentos pessoais (RG, CPF) ou da sua empresa (CNPJ, contrato social), as contas de luz mais recentes pra ver seu consumo, e às vezes algum documento do imóvel. Mas cada comercializadora pode ter uma listinha um pouco diferente, elas te orientam direitinho!"], options: [{ text: "Ok, melie!", nextState: "OPCAO_5"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_5_SUB_TEMPO: { bot: ["Olha, o processo todo, desde a decisão até a energia começar a chegar pelo Mercado Livre, pode levar de uns 90 a 180 dias. Depende um pouco da agilidade com os documentos e dos prazos da sua distribuidora atual. Mas a comercializadora te ajuda a não perder nenhum prazo!"], options: [{ text: "Entendido!", nextState: "OPCAO_5"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_5_SUB_VOLTAR_CATIVO: { bot: ["Sim, pode voltar! Se por algum motivo você decidir que o Mercado Livre não é mais pra você, existe um caminho para retornar ao mercado cativo. É preciso avisar sua comercializadora e a sua distribuidora com uma certa antecedência. É sempre bom checar as condições no seu contrato, pois pode haver prazos ou alguma condição específica para essa volta, tá?"], options: [{ text: "Bom saber! Voltar.", nextState: "OPCAO_5"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_7_INICIO: {
+                bot: ["Com certeza! O mundo da energia tem uns terminos que parecem de outro planeta às vezes, né? 👽 Mas eu te ajudo a decifrar! Sobre qual termo você quer saber mais? Pode digitar aí ou escolher uma das opções:"],
+                options: [
+                    { text: "'Comercializadora Varejista'", nextState: "OPCAO_7_TERMO_COMERCIALIZADORA" },
+                    { text: "'Mercado Cativo' vs 'Mercado Livre'", nextState: "OPCAO_7_TERMO_MERCADOS" },
+                    { text: "'Tarifa de Energia (TE)'", nextState: "OPCAO_7_TERMO_TE" },
+                    { text: "'Tarifa de Uso do Sistema de Distribuição (TUSD)'", nextState: "OPCAO_7_TERMO_TUSD" },
+                    { text: "Quero digitar outro termo", nextState: "OPCAO_7_DIGITAR_TERMO" },
+                    { text: "Voltar ao menu principal ↩️", nextState: "NIVEL_0" }
+                ]
+            },
+            OPCAO_7_TERMO_COMERCIALIZADORA: { bot: ["<strong>Comercializadora Varejista:</strong> Pensa nela como uma empresa especializada que faz a ponte entre você e o Mercado Livre de Energia. Ela é autorizada pela ANEEL. Ela compra energia no atacado e vende pra você, consumidor de baixa tensão, te representando e cuidando de parte da burocracia. É sua parceira nessa jornada!"], options: [{ text: "Entendi! Outros termos.", nextState: "OPCAO_7_INICIO"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_7_TERMO_MERCADOS: { bot: ["<strong>Mercado Cativo:</strong> É o modelo tradicional, onde você só pode comprar energia da distribuidora da sua área, com preços e regras definidos pela ANEEL. <br><strong>Mercado Livre:</strong> É onde a mágica acontece! Aqui você tem liberdade para escolher seu fornecedor de energia, negociar preços, prazos e até o tipo de energia (como renovável). É mais poder de escolha e potencial de economia na sua mão!"], options: [{ text: "Claríssimo! Outros termos.", nextState: "OPCAO_7_INICIO"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_7_TERMO_TE: { bot: ["<strong>Tarifa de Energia (TE):</strong> É basicamente o preço da energia elétrica que você consome, medido em R$/kWh (reais por quilowatt-hora). No Mercado Livre, é essa parte da sua conta que você vai negociar diretamente com a comercializadora."], options: [{ text: "Ok! Outros termos.", nextState: "OPCAO_7_INICIO"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_7_TERMO_TUSD: { bot: ["<strong>Tarifa de Uso do Sistema de Distribuição (TUSD):</strong> Pensa nela como o 'aluguel' que você paga pelo uso dos fios, postes e toda a infraestrutura da distribuidora para a energia chegar até você. Mesmo no Mercado Livre, você continua pagando a TUSD para a distribuidora local, pois ela ainda é a dona dos 'caminhos' da energia."], options: [{ text: "Entendi! Outros termos.", nextState: "OPCAO_7_INICIO"}, { text: "Menu Principal ↩️", nextState: "NIVEL_0" }] },
+            OPCAO_7_DIGITAR_TERMO: {
+                bot: ["Qual termo te deixou com uma pulga atrás da orelha? Pode digitar que eu tento explicar! 🧐"],
+                inputExpected: true,
+                nextStateAfterInput: "OPCAO_7_EXPLICAR_TERMO_DIGITADO"
+            },
+            OPCAO_7_EXPLICAR_TERMO_DIGITADO: {
+                onEnter: (userInputText) => {
+                    const termo = userInputText.toLowerCase().trim();
+                    let resposta = `Puxa, sobre "${userInputText}" eu ainda estou aprendendo os detalhes. Mas prometo pesquisar!`;
+                    if (termo.includes("aneel")) {
+                        resposta = "ANEEL é a Agência Nacional de Energia Elétrica. É tipo o xerife do setor, sabe? Ela cria as regras e fiscaliza tudo pra garantir que a gente tenha energia com qualidade e segurança!";
+                    } else if (termo.includes("kwh")) {
+                        resposta = "kWh é a sigla para quilowatt-hora. É a unidade que a gente usa pra medir quanta energia você consumiu. Quanto mais kWh, maior o consumo!";
+                    } else if (termo.includes("bandeira tarifária") || termo.includes("bandeiras")) {
+                        resposta = "Bandeiras Tarifárias são aquelas cores (verde, amarela, vermelha) que aparecem na conta de luz do mercado cativo. Elas indicam se o custo pra gerar energia no país está mais alto ou mais baixo. No Mercado Livre, como você negocia o preço da energia diretamente, você fica mais protegido dessas variações das bandeiras na parcela de energia (TE)!";
+                    }
+                    addBotMessage(resposta);
+                    handleStateChange("OPCAO_7_INICIO");
+                }
+            },
+            OPCAO_8_INICIO: {
+                bot: ["Claro! Para um dos nossos especialistas aqui da melie te dar uma atenção personalizada e tirar todas as suas dúvidas sobre o Mercado Livre de Energia, me conta seu nome completo, por favor?"],
+                inputExpected: true,
+                nextStateAfterInput: "OPCAO_8_PEDIR_TELEFONE"
+            },
+            OPCAO_8_PEDIR_TELEFONE: {
+                onEnter: (userInputText) => {
+                    userName = userInputText.trim();
+                    if (!userName) {
+                        addBotMessage("Por favor, me diga seu nome completo para continuarmos.");
+                        handleStateChange("OPCAO_8_INICIO");
+                        return;
+                    }
+                    addBotMessage(`Legal, ${userName}! Agora, pra facilitar o contato, qual seu telefone com DDD?`);
+                    handleStateChange("OPCAO_8_PEDIR_TELEFONE_CONFIRM");
+                }
+            },
+            OPCAO_8_PEDIR_TELEFONE_CONFIRM: {
+                inputExpected: true,
+                nextStateAfterInput: "OPCAO_8_CONFIRMACAO"
+            },
+            OPCAO_8_CONFIRMACAO: {
+                onEnter: (userInputText) => {
+                    userPhone = userInputText.trim();
+                    if (!userPhone || !/^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/.test(userPhone)) {
+                        addBotMessage(`Hmm, ${userName}, esse número de telefone não parece válido. Poderia tentar de novo, incluindo o DDD? (Ex: (11) 98765-4321)`);
+                        handleStateChange("OPCAO_8_PEDIR_TELEFONE_CONFIRM");
+                        return;
+                    }
+                    addBotMessage(`Show, ${userName}! Anotei tudo aqui: seu telefone é ${userPhone}. Um especialista da melie vai te ligar em breve, tá? Nosso horário de atendimento para esse contato é de segunda a sexta, das 9h às 18h.`);
+                    handleStateChange("NIVEL_0");
+                }
+            },
+            ERRO_NAO_ENTENDI: {
+                bot: [],
+                onEnter: () => {
+                    addBotMessage(`Opa, ${userName ? userName + ", " : ""}essa eu não peguei! 😬 Que tal tentar de novo com outras palavras ou escolher uma das opções que te mostrei no menu? Se for algum termo técnico, a seção "Dicionário" pode ser uma boa!`);
+                    handleStateChange("NIVEL_0");
+                }
+            },
+            FINALIZAR_OBRIGADO: {
+                bot: [],
+                onEnter: () => {
+                    addBotMessage(`De nada, ${userName || 'você'}! Fico super feliz em ter ajudado. Se pintar mais alguma dúvida no futuro, é só me chamar! A melie está aqui por você. Até mais! 👋`);
+                    renderOptions([ { text: "Começar uma nova conversa ✨", nextState: "NIVEL_0" }]);
+                }
+            }
+        };
+
+        let currentBotStateData = {};
+
+        function getCurrentTimestamp() {
+            return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+        }
+        
+        function setCurrentStateData(stateData) {
+            currentBotStateData = stateData;
+        }
+
+        function addMessageToScreen(text, sender) {
+            const messageWrapper = document.createElement('div');
+            messageWrapper.classList.add('message-wrapper', sender);
+
+            const msgDiv = document.createElement('div');
+            msgDiv.classList.add('message', sender);
+            
+            const textSpan = document.createElement('span');
+            textSpan.innerHTML = text.replace(/\n/g, '<br>');
+            
+            const timeSpan = document.createElement('span');
+            timeSpan.classList.add('timestamp');
+            timeSpan.textContent = getCurrentTimestamp();
+            
+            msgDiv.appendChild(textSpan);
+            msgDiv.appendChild(timeSpan);
+            messageWrapper.appendChild(msgDiv);
+            
+            if (typingIndicator && typingIndicator.parentNode === messagesDiv) {
+                messagesDiv.insertBefore(messageWrapper, typingIndicator);
+            } else {
+                messagesDiv.appendChild(messageWrapper);
+            }
+            
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function addBotMessage(text) { addMessageToScreen(text, 'bot'); }
+        function addUserMessage(text) { addMessageToScreen(text, 'user'); }
+
+        function renderOptions(optionsArray) {
+            optionsContainer.innerHTML = '';
+            if (optionsArray && optionsArray.length > 0) {
+                optionsArray.forEach(opt => {
+                    const button = document.createElement('button');
+                    button.classList.add('option-button');
+                    button.innerHTML = opt.text;
+                    button.onclick = () => handleOptionClick(opt.nextState, opt.text);
+                    optionsContainer.appendChild(button);
+                });
+            }
+        }
+        
+        async function handleStateChange(newStateKey, userTextForBot = null) {
+            currentState = newStateKey;
+            const stateData = melieScript[currentState];
+            setCurrentStateData(stateData);
+
+            if (!stateData) {
+                console.error("Estado não encontrado:", currentState);
+                await handleStateChange("ERRO_NAO_ENTENDI");
+                return;
+            }
+
+            userInput.value = '';
+            
+            if (!stateData.inputExpected) {
+                optionsContainer.innerHTML = '';
+            }
+            
+            const willBotSpeak = (stateData.bot && stateData.bot.length > 0) || (stateData.onEnter); 
+
+            if (willBotSpeak) {
+                showTypingIndicator(true);
+                await new Promise(resolve => setTimeout(resolve, 600));
+            }
+
+            if (stateData.onEnter) {
+                await stateData.onEnter(userTextForBot || userInput.value);
+                if (currentState !== 'OPCAO_4_RECEBIDO') {
+                    showTypingIndicator(false);
+                }
+            } else {
+                if (stateData.bot) {
+                    const botMessages = Array.isArray(stateData.bot) ? stateData.bot : [stateData.bot];
+                    for (const msg of botMessages) {
+                        if (msg) {
+                            showTypingIndicator(false);
+                            let personalizedMsg = msg.replace(/\[Nome do Usuário\]/g, userName).replace(/\[Telefone do Usuário\]/g, userPhone);
+                            addBotMessage(personalizedMsg);
+                            showTypingIndicator(true);
+                            await new Promise(resolve => setTimeout(resolve, msg.length > 100 ? 1200 : 800));
+                        }
+                    }
+                }
+                showTypingIndicator(false);
+                if(stateData.options) renderOptions(stateData.options);
+            }
+
+            if (stateData.inputExpected) {
+                userInput.focus();
+                optionsContainer.innerHTML = '';
+            }
+        }
+
+        function handleOptionClick(nextStateKey, optionText) {
+            addUserMessage(optionText);
+            handleStateChange(nextStateKey);
+        }
+
+        function handleSend() {
+            const text = userInput.value.trim();
+            if (text === "") return;
+
+            addUserMessage(text);
+            
+            const stateData = currentBotStateData;
+
+            if (stateData && stateData.inputExpected && stateData.nextStateAfterInput) {
+                handleStateChange(stateData.nextStateAfterInput, text);
+            } else {
+                let matchedOption = false;
+                if (melieScript[currentState] && melieScript[currentState].options) {
+                    for (const opt of melieScript[currentState].options) {
+                        const optionWords = opt.text.toLowerCase().replace(/[^\w\s]/gi, '').split(" ").slice(0, 2).join(" ");
+                        if (text.toLowerCase().includes(optionWords)) {
+                            handleStateChange(opt.nextState);
+                            matchedOption = true;
+                            break;
+                        }
+                    }
+                }
+                if (!matchedOption) {
+                    if (text.toLowerCase() === "menu" || text.toLowerCase() === "voltar") {
+                        handleStateChange("NIVEL_0");
+                    } else {
+                        handleStateChange("ERRO_NAO_ENTENDI");
+                    }
+                }
+            }
+            userInput.value = '';
+        }
+
+        userInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                handleSend();
+            }
+        });
+
+        window.onload = () => {
+             createTypingIndicator();
+             setTimeout(() => {
+                 handleStateChange('NIVEL_0');
+             }, 100);
+        };
+    </script>
+</body>
+</ht
